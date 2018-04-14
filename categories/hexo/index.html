@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     
     
-    <title>归档: 2018/4 | Hakkin | My Blog Website</title>
+    <title>分类: hexo | Hakkin | My Blog Website</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="keywords" content="">
@@ -101,7 +101,7 @@
               </a>
             </li>
         
-            <li class="">
+            <li class=" active">
               <a href="/categories"  >
                 <i class="icon icon-lg icon-th-list"></i>
                 分类
@@ -115,7 +115,7 @@
               </a>
             </li>
         
-            <li class=" active">
+            <li class="">
               <a href="/archives"  >
                 <i class="icon icon-lg icon-archives"></i>
                 归档
@@ -141,7 +141,7 @@
           <i class="icon icon-lg icon-navicon"></i>
         </a>
         <div class="flex-col header-title ellipsis">
-            <span>归档</span>
+            <span>分类: hexo</span>
             
         </div>
         
@@ -151,21 +151,34 @@
         
     </div>
 </header>
-<header class="content-header archives-header">
+<header class="content-header categories-header">
     <img src="/img/banner.jpg" class="header-bg">
     <div class="container fade-scale">
-        <h1 class="title">归档</h1>
+        <h1 class="title">分类: hexo</h1>
         <h5 class="subtitle">
             
         </h5>
         
-        <div class="remind">
-            <p>总计文章( <span>1</span> )篇，约( <span>0.4K</span> )字</p>
-            <p>Keep moving😎!!!</p>
-        </div>
-        
     </div>
     
+<div class="tabs-bar container">
+    <nav class="tags-list">
+        <a href="/categories" style="-webkit-order:-1;order:-1" class="tags-list-item waves-effect waves-button waves-light
+            ">全部</a>
+        
+            <a href="/categories/hexo/" backup-style="-webkit-order:0;order:0" class="tags-list-item waves-effect waves-button waves-light active">hexo</a>
+            
+        
+            <a href="/categories/hexo/data/" backup-style="-webkit-order:1;order:1" class="tags-list-item waves-effect waves-button waves-light">数据</a>
+            
+        
+    </nav>
+    <!-- PC show more-->
+    <div class="tags-list-more">
+        <a href="javascript:;" class="action tags-list-item waves-effect waves-circle waves-light"><i class="icon icon-ellipsis-h"></i></a>
+    </div>
+</div>
+
 
 </header>
 
@@ -184,10 +197,9 @@
 
 <div class="container body-wrap fade">
     
-                <h3 class="archive-separator">April, 2018</h3>
-                <div class="waterfall">
-            
-        <div class="waterfall-item">
+            <div class="waterfall">
+                
+                    <div class="waterfall-item">
   <article class="article-card archive-article">
     <div class="post-meta">
       <time class="post-time" title="2018-04-07 09:56:27" datetime="2018-04-07T01:56:27.000Z"  itemprop="datePublished">2018-04-07</time>
@@ -218,8 +230,9 @@
     
   </article>
 </div>
+                
+            </div>
         
-    </div>
     
 </div>
 
@@ -269,7 +282,7 @@
     <ul class="reset share-icons">
       
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/archives/2018/04/&title=Hakkin&pic=http://yoursite.com/img/avatar1.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/categories/hexo/&title=Hakkin&pic=http://yoursite.com/img/avatar1.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -281,7 +294,7 @@
       </li>
       
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/archives/2018/04/&title=Hakkin&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/categories/hexo/&title=Hakkin&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -293,7 +306,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABvUlEQVR42u3aQY7DIAwF0N7/0h1ptlWZb0ycjPRYRWkaHllY2Ob1isf7d3xef/v1c6zfeXjg4uK2ue/lOMVN3hktFRcXd5CbBK81ev0JkvtRsMPFxX0Ytxr+vj2fvB8XF/e/cNd39sIZLi7uk7lJorI3/beFXZ6r4eLiNridgump66H6Li4ubrsr0WmH5MGuMDsuLu4IN2mN5KWN9ZN7i3klXwgXF3eEm0zcCX/VnQwuLu4kN9+4JIFmr/VSON6Bi4s7wu2UL6utlH6yhIuLO8PNj0lVp8ybK3n4w8XFvZeblzZONUs2u8G4uLgXcPvVyFMN1APHLHBxcS/g9ksh661MdZY/Fo+LizvCzRsnOa4THHFxce/i7hVEkpQpSbHyIiwuLu4kN0889honVW70Tlxc3Iu5rd3QVpir/gsXF/cubjXJqbZaO4VRXFzcu7j56B/FSA5hlDuxuLi4R7n9nma+Zake9uq0bHFxcfvc64JXdWFRuQQXF3eQmxcv8lSnfwCrUN/FxcW9iVuF5mlPISnCxcV9JHcvmekvAxcXd57bCS79wmvygXBxcSe5ewXTfIJq4KseAcHFxT3K/QEK3E3UWFT+vwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAByklEQVR42u3aQY7CMBAEQP7/aVbaE9KSpNt2vCCVTxEEp8yhZc/k8YjH83e8Xr9+ktz59/6jGRYMXFzcae7zdCTcdjFHM5wbcHFx93PbSDoKpiTIzhd8YcPFxf0w7lgwJQvGxcX9Xm4eVecLxsXF/RZuEjTnj883Q/mvcHFx/4s7VjBde317fRcXF3dRV6ItnrbRUz8dFxd3C/coUPKjyFjrdKaEiouLezd37PiRTD2zlYkiDBcX92ZuG1sJri2wRovHxcXdwm0LHzMN1/y3SWrh4uLezb0vsMZathcSXFzcLdyxUsVYwLXF02WVFVxc3Jjb4sYe3DZxi04vLi7uzdz2wfm5aqz8+uaPw8XF3cLN26VjRc82+HBxcT+BOzPRfDs2L5Li4uLu5NbvcJX3z2yMLuq7uLi4t3HbtmgLbee8iDZcXNyN3OTAM9YgGSyMngcZLi7uFm4+8qmTTU/ddMHFxd3CXRVA7YtZ7csc9WJwcXGnuUl45ceVsYJpEXC4uLgbufl2pN0ezR+W3gQZLi7ux3DzAFpVJJ0KMlxc3O3c5IWJ9tto84SLi7uR225Q2pBqSycLyiK4uLgT3LZg2gbQzBYKFxd3O/cH/va0e+mgapQAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 
