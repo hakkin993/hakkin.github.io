@@ -99,25 +99,27 @@
 
 
 
-  <meta name="description" content="分区县公服营业用户用气量及用电量对比 对于公服营业用户来说，其用气量和第三产业用电量是具有相关性的，可以通过一个地区的第三产业用电量的多少大致判断其用气量的多少，下图为北京各个区县的公服用户在2017年的用气量和用电量的对比图。             // 基于准备好的dom，初始化echarts实例         var myChart = echarts.init(document.ge">
-<meta name="keywords" content="燃气,数据">
+  <meta name="description" content="通过关键字判断用户类型 需要通过查找用户名称中的某些关键字来判断其用户类型，在excel中可以通过IF、COUNT、FIND函数组合实现。 如下图所示的表格：  该表格的用户名称没有特定规律，但是可以通过某些关键字来判断其用户类型，例如餐饮类型的用户一般含有“餐”、“锅”、“酒楼”等关键字；而宾馆类型的用户一般含有“宾馆”、“酒店”、“招待所”等字样的关键字。那么就可以在用户类型的单元格内通过如">
+<meta name="keywords" content="excel,数据">
 <meta property="og:type" content="article">
-<meta property="og:title" content="公服用户用气量与用电量对比">
-<meta property="og:url" content="https://hakkin994.coding.me/2018/04/16/公服用户用气量与用电量对比/index.html">
+<meta property="og:title" content="EXCEL查找多个字符串的用法">
+<meta property="og:url" content="https://hakkin994.coding.me/2018/04/17/EXCEL在一个字符串中查找多个字符的用法/index.html">
 <meta property="og:site_name" content="Hakkin">
-<meta property="og:description" content="分区县公服营业用户用气量及用电量对比 对于公服营业用户来说，其用气量和第三产业用电量是具有相关性的，可以通过一个地区的第三产业用电量的多少大致判断其用气量的多少，下图为北京各个区县的公服用户在2017年的用气量和用电量的对比图。             // 基于准备好的dom，初始化echarts实例         var myChart = echarts.init(document.ge">
+<meta property="og:description" content="通过关键字判断用户类型 需要通过查找用户名称中的某些关键字来判断其用户类型，在excel中可以通过IF、COUNT、FIND函数组合实现。 如下图所示的表格：  该表格的用户名称没有特定规律，但是可以通过某些关键字来判断其用户类型，例如餐饮类型的用户一般含有“餐”、“锅”、“酒楼”等关键字；而宾馆类型的用户一般含有“宾馆”、“酒店”、“招待所”等字样的关键字。那么就可以在用户类型的单元格内通过如">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-16T14:22:50.453Z">
+<meta property="og:image" content="https://hakkin994.coding.me/2018/04/17/EXCEL在一个字符串中查找多个字符的用法/用户名称.jpg">
+<meta property="og:updated_time" content="2018-04-17T06:05:24.929Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="公服用户用气量与用电量对比">
-<meta name="twitter:description" content="分区县公服营业用户用气量及用电量对比 对于公服营业用户来说，其用气量和第三产业用电量是具有相关性的，可以通过一个地区的第三产业用电量的多少大致判断其用气量的多少，下图为北京各个区县的公服用户在2017年的用气量和用电量的对比图。             // 基于准备好的dom，初始化echarts实例         var myChart = echarts.init(document.ge">
+<meta name="twitter:title" content="EXCEL查找多个字符串的用法">
+<meta name="twitter:description" content="通过关键字判断用户类型 需要通过查找用户名称中的某些关键字来判断其用户类型，在excel中可以通过IF、COUNT、FIND函数组合实现。 如下图所示的表格：  该表格的用户名称没有特定规律，但是可以通过某些关键字来判断其用户类型，例如餐饮类型的用户一般含有“餐”、“锅”、“酒楼”等关键字；而宾馆类型的用户一般含有“宾馆”、“酒店”、“招待所”等字样的关键字。那么就可以在用户类型的单元格内通过如">
+<meta name="twitter:image" content="https://hakkin994.coding.me/2018/04/17/EXCEL在一个字符串中查找多个字符的用法/用户名称.jpg">
 
 
 
 
 
 
-  <link rel="canonical" href="https://hakkin994.coding.me/2018/04/16/公服用户用气量与用电量对比/"/>
+  <link rel="canonical" href="https://hakkin994.coding.me/2018/04/17/EXCEL在一个字符串中查找多个字符的用法/"/>
 
 
 
@@ -127,7 +129,7 @@
   };
 </script>
 
-  <title>公服用户用气量与用电量对比 | Hakkin</title>
+  <title>EXCEL查找多个字符串的用法 | Hakkin</title>
   
 
 
@@ -299,7 +301,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hakkin994.coding.me/2018/04/16/公服用户用气量与用电量对比/">
+    <link itemprop="mainEntityOfPage" href="https://hakkin994.coding.me/2018/04/17/EXCEL在一个字符串中查找多个字符的用法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Bin D">
@@ -316,7 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">公服用户用气量与用电量对比
+          <h1 class="post-title" itemprop="name headline">EXCEL查找多个字符串的用法
               
             
           </h1>
@@ -341,7 +343,7 @@
                 
               
 
-              <time title="创建于：2018-04-16 22:00:50 / 更新于：22:22:50" itemprop="dateCreated datePublished" datetime="2018-04-16T22:00:50+08:00">2018-04-16</time>
+              <time title="创建于：2018-04-17 13:41:54 / 更新于：14:05:24" itemprop="dateCreated datePublished" datetime="2018-04-17T13:41:54+08:00">2018-04-17</time>
             
 
             
@@ -363,7 +365,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/工作/" itemprop="url" rel="index"><span itemprop="name">工作</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/教程/" itemprop="url" rel="index"><span itemprop="name">教程</span></a></span>
 
                 
                 
@@ -397,84 +399,13 @@
       
 
       
-        <h1 id="分区县公服营业用户用气量及用电量对比"><a class="markdownIt-Anchor" href="#分区县公服营业用户用气量及用电量对比"></a> 分区县公服营业用户用气量及用电量对比</h1>
-<p>对于公服营业用户来说，其用气量和第三产业用电量是具有相关性的，可以通过一个地区的第三产业用电量的多少大致判断其用气量的多少，下图为北京各个区县的公服用户在2017年的用气量和用电量的对比图。</p>
-<div id="echarts9074" style="width: 80%;height: 400px;margin: 0 auto"></div>
-<script src="http://echarts.baidu.com/dist/echarts.common.min.js"></script>
+        <h2 id="通过关键字判断用户类型"><a class="markdownIt-Anchor" href="#通过关键字判断用户类型"></a> 通过关键字判断用户类型</h2>
+<p>需要通过查找用户名称中的某些关键字来判断其用户类型，在excel中可以通过IF、COUNT、FIND函数组合实现。</p>
+<p>如下图所示的表格：</p>
+<img src="/2018/04/17/EXCEL在一个字符串中查找多个字符的用法/用户名称.jpg" title="用户名称">
+<p>该表格的用户名称没有特定规律，但是可以通过某些关键字来判断其用户类型，例如餐饮类型的用户一般含有“餐”、“锅”、“酒楼”等关键字；而宾馆类型的用户一般含有“宾馆”、“酒店”、“招待所”等字样的关键字。那么就可以在用户类型的单元格内通过如下函数实现查找：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">=IF(COUNT(FIND(&#123;&quot;餐&quot;,&quot;锅&quot;,&quot;酒楼&quot;&#125;,[@名称]))&gt;0,&quot;餐饮&quot;,IF(COUNT(FIND(&#123;&quot;宾馆&quot;,&quot;酒店&quot;,&quot;招待所&quot;&#125;,[@名称]))&gt;0,&quot;宾馆&quot;,&quot;其它&quot;))</span><br></pre></td></tr></table></figure>
 
-<script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('echarts9074'));
-        // 指定图表的配置项和数据
-        var option = 
-{
-    title: {
-        text: "分区县公服用气量和用电量",
-        x: "left"
-    },
-    tooltip: {
-        trigger: "axis"
-    },
-    legend: {
-        data: ["公服用户用气量", "第三产业用电量"],
-        y: "bottom"
-    },
-    toolbox: {
-        show: true,
-        feature: {
-            mark: {
-                show: true
-            },
-            dataView: {
-                show: true,
-                readOnly: false
-            },
-            restore: {
-                show: true
-            },
-            saveAsImage: {
-                show: true
-            }
-        }
-    },
-    calculable: true,
-    xAxis: [
-        {
-            type: "category",
-            axisLine: {
-                onZero: false
-            },
-            data: ["昌平", "朝阳", "大兴", "东城", "房山", "丰台", "海淀", "门头沟", "石景山", "顺义", "通州", "西城"]
-        }
-    ],
-    yAxis: [
-        {
-            type: "value",
-            name: "用气量（亿立方米）"
-        },
-        {
-            type: "value",
-            name: "用电量（亿千瓦时）",
-            scale: false
-        }
-    ],
-    series: [
-        {
-            name: "公服用户用气量",
-            type: "bar",
-            data: [0.81, 8.1, 4.07, 1.19, 0.91, 4.99, 8.42, 0.02, 0.37, 0.1, 1.69, 1.28]
-        },
-        {
-            name: "第三产业用电量",
-            type: "line",
-            data: [30.27, 111.18, 20.28, 39.4, 11.22, 40.63, 92.07, 3.78, 10.03, 22.32, 30.06, 39.51],
-            yAxisIndex: 1
-        }
-    ]
-}
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
-</script>
       
     </div>
 
@@ -494,7 +425,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/燃气/" rel="tag"># 燃气</a>
+            <a href="/tags/excel/" rel="tag"># excel</a>
           
             <a href="/tags/数据/" rel="tag"># 数据</a>
           
@@ -509,7 +440,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/16/hello-world/" rel="next" title="Hello World">
+              <a href="/2018/04/17/hello-world/" rel="next" title="Hello World">
                 <i class="fa fa-chevron-left"></i> Hello World
               </a>
             
@@ -595,7 +526,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -612,7 +543,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -633,7 +566,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">4</span>
+                      
+                    
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -688,7 +623,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分区县公服营业用户用气量及用电量对比"><span class="nav-number">1.</span> <span class="nav-text"> 分区县公服营业用户用气量及用电量对比</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#通过关键字判断用户类型"><span class="nav-number">1.</span> <span class="nav-text"> 通过关键字判断用户类型</span></a></li></ol></div>
             
 
           </div>
