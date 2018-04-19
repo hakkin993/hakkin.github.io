@@ -84,9 +84,9 @@
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
+      applicationID: 'KSMTQ1EBPZ',
+      apiKey: '0eec43dde5655680a52ddc8c2da9c836',
+      indexName: 'hakkin',
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     }
@@ -99,18 +99,18 @@
 
 
 
-  <meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;这些年陆陆续续骑行过好多地方，开始骑行的初衷很简单，就是为了减肥，没想到骑得越多，吃得也越多，这个肥算是白减了。不过骑行过这么多美丽的地方，认识了许多兴趣相近的人也不枉喜欢过骑行这项运动。 骑行百里画廊  骑行妙峰山  骑行通州运河绿道骑行周  骑行潭王路  骑行108国道">
+  <meta name="description" content="这些年陆陆续续骑行过好多地方，开始骑行的初衷很简单，就是为了减肥，没想到骑得越多，吃得也越多，这个肥算是白减了。不过骑行过这么多美丽的地方，认识了许多兴趣相近的人也不枉喜欢过骑行这项运动。  骑行百里画廊    骑行妙峰山    骑行通州运河绿道骑行周    骑行潭王路    骑行108国道">
 <meta name="keywords" content="骑行,视频">
 <meta property="og:type" content="article">
 <meta property="og:title" content="骑行视频">
 <meta property="og:url" content="https://hakkin994.coding.me/2018/04/19/骑行视频/index.html">
 <meta property="og:site_name" content="Hakkin">
-<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;这些年陆陆续续骑行过好多地方，开始骑行的初衷很简单，就是为了减肥，没想到骑得越多，吃得也越多，这个肥算是白减了。不过骑行过这么多美丽的地方，认识了许多兴趣相近的人也不枉喜欢过骑行这项运动。 骑行百里画廊  骑行妙峰山  骑行通州运河绿道骑行周  骑行潭王路  骑行108国道">
+<meta property="og:description" content="这些年陆陆续续骑行过好多地方，开始骑行的初衷很简单，就是为了减肥，没想到骑得越多，吃得也越多，这个肥算是白减了。不过骑行过这么多美丽的地方，认识了许多兴趣相近的人也不枉喜欢过骑行这项运动。  骑行百里画廊    骑行妙峰山    骑行通州运河绿道骑行周    骑行潭王路    骑行108国道">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2018-04-19T15:01:26.354Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="骑行视频">
-<meta name="twitter:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;这些年陆陆续续骑行过好多地方，开始骑行的初衷很简单，就是为了减肥，没想到骑得越多，吃得也越多，这个肥算是白减了。不过骑行过这么多美丽的地方，认识了许多兴趣相近的人也不枉喜欢过骑行这项运动。 骑行百里画廊  骑行妙峰山  骑行通州运河绿道骑行周  骑行潭王路  骑行108国道">
+<meta name="twitter:description" content="这些年陆陆续续骑行过好多地方，开始骑行的初衷很简单，就是为了减肥，没想到骑得越多，吃得也越多，这个肥算是白减了。不过骑行过这么多美丽的地方，认识了许多兴趣相近的人也不枉喜欢过骑行这项运动。  骑行百里画廊    骑行妙峰山    骑行通州运河绿道骑行周    骑行潭王路    骑行108国道">
 
 
 
@@ -253,6 +253,14 @@
 
       
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
     </ul>
   
 
@@ -261,6 +269,33 @@
 
   
 
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
   
 </nav>
 
@@ -404,16 +439,21 @@
       
 
       
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这些年陆陆续续骑行过好多地方，开始骑行的初衷很简单，就是为了减肥，没想到骑得越多，吃得也越多，这个肥算是白减了。不过骑行过这么多美丽的地方，认识了许多兴趣相近的人也不枉喜欢过骑行这项运动。</p>
-<h2 id="骑行百里画廊"><a href="#骑行百里画廊" class="headerlink" title="骑行百里画廊"></a>骑行百里画廊</h2><div class="video-container"><iframe src="http://player.youku.com/embed/XMzA3NDA4NTg4OA==" frameborder="0" allowfullscreen></iframe></div>
+        <p>        这些年陆陆续续骑行过好多地方，开始骑行的初衷很简单，就是为了减肥，没想到骑得越多，吃得也越多，这个肥算是白减了。不过骑行过这么多美丽的地方，认识了许多兴趣相近的人也不枉喜欢过骑行这项运动。</p>
+<h2 id="骑行百里画廊"><a class="markdownIt-Anchor" href="#骑行百里画廊"></a> 骑行百里画廊</h2>
+<div class="video-container"><iframe src="http://player.youku.com/embed/XMzA3NDA4NTg4OA==" frameborder="0" allowfullscreen></iframe></div>
 <hr>
-<h2 id="骑行妙峰山"><a href="#骑行妙峰山" class="headerlink" title="骑行妙峰山"></a>骑行妙峰山</h2><div class="video-container"><iframe src="http://player.youku.com/embed/XNzIwMTcyNzg4" frameborder="0" allowfullscreen></iframe></div>
+<h2 id="骑行妙峰山"><a class="markdownIt-Anchor" href="#骑行妙峰山"></a> 骑行妙峰山</h2>
+<div class="video-container"><iframe src="http://player.youku.com/embed/XNzIwMTcyNzg4" frameborder="0" allowfullscreen></iframe></div>
 <hr>
-<h2 id="骑行通州运河绿道骑行周"><a href="#骑行通州运河绿道骑行周" class="headerlink" title="骑行通州运河绿道骑行周"></a>骑行通州运河绿道骑行周</h2><div class="video-container"><iframe src="http://player.youku.com/embed/XNzEzNzIxNjYw" frameborder="0" allowfullscreen></iframe></div>
+<h2 id="骑行通州运河绿道骑行周"><a class="markdownIt-Anchor" href="#骑行通州运河绿道骑行周"></a> 骑行通州运河绿道骑行周</h2>
+<div class="video-container"><iframe src="http://player.youku.com/embed/XNzEzNzIxNjYw" frameborder="0" allowfullscreen></iframe></div>
 <hr>
-<h2 id="骑行潭王路"><a href="#骑行潭王路" class="headerlink" title="骑行潭王路"></a>骑行潭王路</h2><div class="video-container"><iframe src="http://player.youku.com/embed/XNzI2NjU3OTI4" frameborder="0" allowfullscreen></iframe></div>
+<h2 id="骑行潭王路"><a class="markdownIt-Anchor" href="#骑行潭王路"></a> 骑行潭王路</h2>
+<div class="video-container"><iframe src="http://player.youku.com/embed/XNzI2NjU3OTI4" frameborder="0" allowfullscreen></iframe></div>
 <hr>
-<h2 id="骑行108国道"><a href="#骑行108国道" class="headerlink" title="骑行108国道"></a>骑行108国道</h2><div class="video-container"><iframe src="http://player.youku.com/embed/XNzU2ODI1NDAw" frameborder="0" allowfullscreen></iframe></div>
+<h2 id="骑行108国道"><a class="markdownIt-Anchor" href="#骑行108国道"></a> 骑行108国道</h2>
+<div class="video-container"><iframe src="http://player.youku.com/embed/XNzU2ODI1NDAw" frameborder="0" allowfullscreen></iframe></div>
 
       
     </div>
@@ -428,6 +468,20 @@
 
     
 
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Bin D</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://hakkin994.coding.me/2018/04/19/骑行视频/" title="骑行视频">https://hakkin994.coding.me/2018/04/19/骑行视频/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
     
 
     <footer class="post-footer">
@@ -449,8 +503,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/19/按照燃气表分界流量筛分异常用户/" rel="next" title="按照燃气表分界流量筛分异常用户">
-                <i class="fa fa-chevron-left"></i> 按照燃气表分界流量筛分异常用户
+              <a href="/2018/04/19/按照分界流量筛分异常用户/" rel="next" title="按照分界流量筛分异常用户">
+                <i class="fa fa-chevron-left"></i> 按照分界流量筛分异常用户
               </a>
             
           </div>
@@ -525,7 +579,7 @@
                 alt="Bin D" />
             
               <p class="site-author-name" itemprop="name">Bin D</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">记录生活、工作和学习</p>
           </div>
 
           
@@ -644,7 +698,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#骑行百里画廊"><span class="nav-number">1.</span> <span class="nav-text">骑行百里画廊</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#骑行妙峰山"><span class="nav-number">2.</span> <span class="nav-text">骑行妙峰山</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#骑行通州运河绿道骑行周"><span class="nav-number">3.</span> <span class="nav-text">骑行通州运河绿道骑行周</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#骑行潭王路"><span class="nav-number">4.</span> <span class="nav-text">骑行潭王路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#骑行108国道"><span class="nav-number">5.</span> <span class="nav-text">骑行108国道</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#骑行百里画廊"><span class="nav-number">1.</span> <span class="nav-text"> 骑行百里画廊</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#骑行妙峰山"><span class="nav-number">2.</span> <span class="nav-text"> 骑行妙峰山</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#骑行通州运河绿道骑行周"><span class="nav-number">3.</span> <span class="nav-text"> 骑行通州运河绿道骑行周</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#骑行潭王路"><span class="nav-number">4.</span> <span class="nav-text"> 骑行潭王路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#骑行108国道"><span class="nav-number">5.</span> <span class="nav-text"> 骑行108国道</span></a></li></ol></div>
             
 
           </div>
@@ -826,6 +880,19 @@
   
 
 
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=6.1.0"></script>
 
 
 

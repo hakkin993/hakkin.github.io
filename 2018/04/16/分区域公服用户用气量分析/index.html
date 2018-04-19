@@ -84,9 +84,9 @@
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
+      applicationID: 'KSMTQ1EBPZ',
+      apiKey: '0eec43dde5655680a52ddc8c2da9c836',
+      indexName: 'hakkin',
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     }
@@ -99,18 +99,18 @@
 
 
 
-  <meta name="description" content="公服用气量与第三产业用电量对比&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;一般来说，公服营业用户包括餐饮、宾馆、商场、健身娱乐场所等类型，基本上都是属于第三产业的范畴，所以对于公服营业用户来说，其用气量和第三产业用电量是具有相关性的，可以通过一个地区的第三产业用电量的多少大致判断其用气量的多少，下图为北京各个区县的公服用户在2017年的用气量和用">
+  <meta name="description" content="公服用气量与第三产业用电量对比         一般来说，公服营业用户包括餐饮、宾馆、商场、健身娱乐场所等类型，基本上都是属于第三产业的范畴，所以对于公服营业用户来说，其用气量和第三产业用电量是具有相关性的，可以通过一个地区的第三产业用电量的多少大致判断其用气量的多少，下图为北京各个区县的公服用户在2017年的用气量和用电量的对比图。             // 基于准备好的dom，初始化ec">
 <meta name="keywords" content="数据,燃气">
 <meta property="og:type" content="article">
 <meta property="og:title" content="分区域公服用户用气量分析">
 <meta property="og:url" content="https://hakkin994.coding.me/2018/04/16/分区域公服用户用气量分析/index.html">
 <meta property="og:site_name" content="Hakkin">
-<meta property="og:description" content="公服用气量与第三产业用电量对比&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;一般来说，公服营业用户包括餐饮、宾馆、商场、健身娱乐场所等类型，基本上都是属于第三产业的范畴，所以对于公服营业用户来说，其用气量和第三产业用电量是具有相关性的，可以通过一个地区的第三产业用电量的多少大致判断其用气量的多少，下图为北京各个区县的公服用户在2017年的用气量和用">
+<meta property="og:description" content="公服用气量与第三产业用电量对比         一般来说，公服营业用户包括餐饮、宾馆、商场、健身娱乐场所等类型，基本上都是属于第三产业的范畴，所以对于公服营业用户来说，其用气量和第三产业用电量是具有相关性的，可以通过一个地区的第三产业用电量的多少大致判断其用气量的多少，下图为北京各个区县的公服用户在2017年的用气量和用电量的对比图。             // 基于准备好的dom，初始化ec">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2018-04-19T06:06:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分区域公服用户用气量分析">
-<meta name="twitter:description" content="公服用气量与第三产业用电量对比&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;一般来说，公服营业用户包括餐饮、宾馆、商场、健身娱乐场所等类型，基本上都是属于第三产业的范畴，所以对于公服营业用户来说，其用气量和第三产业用电量是具有相关性的，可以通过一个地区的第三产业用电量的多少大致判断其用气量的多少，下图为北京各个区县的公服用户在2017年的用气量和用">
+<meta name="twitter:description" content="公服用气量与第三产业用电量对比         一般来说，公服营业用户包括餐饮、宾馆、商场、健身娱乐场所等类型，基本上都是属于第三产业的范畴，所以对于公服营业用户来说，其用气量和第三产业用电量是具有相关性的，可以通过一个地区的第三产业用电量的多少大致判断其用气量的多少，下图为北京各个区县的公服用户在2017年的用气量和用电量的对比图。             // 基于准备好的dom，初始化ec">
 
 
 
@@ -253,6 +253,14 @@
 
       
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
     </ul>
   
 
@@ -261,6 +269,33 @@
 
   
 
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
   
 </nav>
 
@@ -416,13 +451,14 @@
       
 
       
-        <h2 id="公服用气量与第三产业用电量对比"><a href="#公服用气量与第三产业用电量对比" class="headerlink" title="公服用气量与第三产业用电量对比"></a>公服用气量与第三产业用电量对比</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一般来说，公服营业用户包括餐饮、宾馆、商场、健身娱乐场所等类型，基本上都是属于第三产业的范畴，所以对于公服营业用户来说，其用气量和第三产业用电量是具有相关性的，可以通过一个地区的第三产业用电量的多少大致判断其用气量的多少，下图为北京各个区县的公服用户在2017年的用气量和用电量的对比图。</p>
-<div id="echarts8410" style="width: 80%;height: 400px;margin: 0 auto"></div>
+        <h2 id="公服用气量与第三产业用电量对比"><a class="markdownIt-Anchor" href="#公服用气量与第三产业用电量对比"></a> 公服用气量与第三产业用电量对比</h2>
+<p>        一般来说，公服营业用户包括餐饮、宾馆、商场、健身娱乐场所等类型，基本上都是属于第三产业的范畴，所以对于公服营业用户来说，其用气量和第三产业用电量是具有相关性的，可以通过一个地区的第三产业用电量的多少大致判断其用气量的多少，下图为北京各个区县的公服用户在2017年的用气量和用电量的对比图。</p>
+<div id="echarts1787" style="width: 80%;height: 400px;margin: 0 auto"></div>
 <script src="http://echarts.baidu.com/dist/echarts.min.js"></script>
 
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('echarts8410'));
+        var myChart = echarts.init(document.getElementById('echarts1787'));
         // 指定图表的配置项和数据
         var option = {
     title: {
@@ -498,13 +534,14 @@
 <li>由于远郊区县的用气量统计不完整，并不能反应用气量与用电量的相关性。</li>
 </ul>
 </blockquote>
-<h2 id="公服用气量与住宿餐饮就业人口对比"><a href="#公服用气量与住宿餐饮就业人口对比" class="headerlink" title="公服用气量与住宿餐饮就业人口对比"></a>公服用气量与住宿餐饮就业人口对比</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了更为准确的寻找公服营业用户的用气指标，通过《北京市统计年鉴》引入住宿餐饮就业人口来分析其与公服营业用户用气量的相关性。</p>
-<div id="echarts6117" style="width: 80%;height: 400px;margin: 0 auto"></div>
+<h2 id="公服用气量与住宿餐饮就业人口对比"><a class="markdownIt-Anchor" href="#公服用气量与住宿餐饮就业人口对比"></a> 公服用气量与住宿餐饮就业人口对比</h2>
+<p>        为了更为准确的寻找公服营业用户的用气指标，通过《北京市统计年鉴》引入住宿餐饮就业人口来分析其与公服营业用户用气量的相关性。</p>
+<div id="echarts191" style="width: 80%;height: 400px;margin: 0 auto"></div>
 <script src="http://echarts.baidu.com/dist/echarts.min.js"></script>
 
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('echarts6117'));
+        var myChart = echarts.init(document.getElementById('echarts191'));
         // 指定图表的配置项和数据
         var option = {
     title: {
@@ -595,6 +632,20 @@
 
     
 
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Bin D</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://hakkin994.coding.me/2018/04/16/分区域公服用户用气量分析/" title="分区域公服用户用气量分析">https://hakkin994.coding.me/2018/04/16/分区域公服用户用气量分析/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
     
 
     <footer class="post-footer">
@@ -696,7 +747,7 @@
                 alt="Bin D" />
             
               <p class="site-author-name" itemprop="name">Bin D</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">记录生活、工作和学习</p>
           </div>
 
           
@@ -815,7 +866,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#公服用气量与第三产业用电量对比"><span class="nav-number">1.</span> <span class="nav-text">公服用气量与第三产业用电量对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#公服用气量与住宿餐饮就业人口对比"><span class="nav-number">2.</span> <span class="nav-text">公服用气量与住宿餐饮就业人口对比</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#公服用气量与第三产业用电量对比"><span class="nav-number">1.</span> <span class="nav-text"> 公服用气量与第三产业用电量对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#公服用气量与住宿餐饮就业人口对比"><span class="nav-number">2.</span> <span class="nav-text"> 公服用气量与住宿餐饮就业人口对比</span></a></li></ol></div>
             
 
           </div>
@@ -997,6 +1048,19 @@
   
 
 
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=6.1.0"></script>
 
 
 
