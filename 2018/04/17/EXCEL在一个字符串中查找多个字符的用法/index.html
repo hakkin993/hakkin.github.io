@@ -99,19 +99,19 @@
 
 
 
-  <meta name="description" content="通过关键字判断用户类型 需要通过查找用户名称中的某些关键字来判断其用户类型，在excel中可以通过IF、COUNT、FIND函数组合实现。 如下图所示的表格：  该表格的用户名称没有特定规律，但是可以通过某些关键字来判断其用户类型，例如餐饮类型的用户一般含有“餐”、“锅”、“酒楼”等关键字；而宾馆类型的用户一般含有“宾馆”、“酒店”、“招待所”等字样的关键字。那么就可以在用户类型的单元格内通过如">
+  <meta name="description" content="通过关键字判断用户类型需要通过查找用户名称中的某些关键字来判断其用户类型，在excel中可以通过IF、COUNT、FIND函数组合实现。 如下图所示的表格：  该表格的用户名称没有特定规律，但是可以通过某些关键字来判断其用户类型，例如餐饮类型的用户一般含有“餐”、“锅”、“酒楼”等关键字；而宾馆类型的用户一般含有“宾馆”、“酒店”、“招待所”等字样的关键字。那么就可以在用户类型的单元格内通过如下函">
 <meta name="keywords" content="excel,数据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="EXCEL在一个字符串中查找多个字符的用法">
 <meta property="og:url" content="https://hakkin994.coding.me/2018/04/17/EXCEL在一个字符串中查找多个字符的用法/index.html">
 <meta property="og:site_name" content="Hakkin">
-<meta property="og:description" content="通过关键字判断用户类型 需要通过查找用户名称中的某些关键字来判断其用户类型，在excel中可以通过IF、COUNT、FIND函数组合实现。 如下图所示的表格：  该表格的用户名称没有特定规律，但是可以通过某些关键字来判断其用户类型，例如餐饮类型的用户一般含有“餐”、“锅”、“酒楼”等关键字；而宾馆类型的用户一般含有“宾馆”、“酒店”、“招待所”等字样的关键字。那么就可以在用户类型的单元格内通过如">
+<meta property="og:description" content="通过关键字判断用户类型需要通过查找用户名称中的某些关键字来判断其用户类型，在excel中可以通过IF、COUNT、FIND函数组合实现。 如下图所示的表格：  该表格的用户名称没有特定规律，但是可以通过某些关键字来判断其用户类型，例如餐饮类型的用户一般含有“餐”、“锅”、“酒楼”等关键字；而宾馆类型的用户一般含有“宾馆”、“酒店”、“招待所”等字样的关键字。那么就可以在用户类型的单元格内通过如下函">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://hakkin994.coding.me/2018/04/17/EXCEL在一个字符串中查找多个字符的用法/用户名称.jpg">
 <meta property="og:updated_time" content="2018-04-17T06:11:48.032Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="EXCEL在一个字符串中查找多个字符的用法">
-<meta name="twitter:description" content="通过关键字判断用户类型 需要通过查找用户名称中的某些关键字来判断其用户类型，在excel中可以通过IF、COUNT、FIND函数组合实现。 如下图所示的表格：  该表格的用户名称没有特定规律，但是可以通过某些关键字来判断其用户类型，例如餐饮类型的用户一般含有“餐”、“锅”、“酒楼”等关键字；而宾馆类型的用户一般含有“宾馆”、“酒店”、“招待所”等字样的关键字。那么就可以在用户类型的单元格内通过如">
+<meta name="twitter:description" content="通过关键字判断用户类型需要通过查找用户名称中的某些关键字来判断其用户类型，在excel中可以通过IF、COUNT、FIND函数组合实现。 如下图所示的表格：  该表格的用户名称没有特定规律，但是可以通过某些关键字来判断其用户类型，例如餐饮类型的用户一般含有“餐”、“锅”、“酒楼”等关键字；而宾馆类型的用户一般含有“宾馆”、“酒店”、“招待所”等字样的关键字。那么就可以在用户类型的单元格内通过如下函">
 <meta name="twitter:image" content="https://hakkin994.coding.me/2018/04/17/EXCEL在一个字符串中查找多个字符的用法/用户名称.jpg">
 
 
@@ -399,8 +399,7 @@
       
 
       
-        <h2 id="通过关键字判断用户类型"><a class="markdownIt-Anchor" href="#通过关键字判断用户类型"></a> 通过关键字判断用户类型</h2>
-<p>需要通过查找用户名称中的某些关键字来判断其用户类型，在excel中可以通过IF、COUNT、FIND函数组合实现。</p>
+        <h2 id="通过关键字判断用户类型"><a href="#通过关键字判断用户类型" class="headerlink" title="通过关键字判断用户类型"></a>通过关键字判断用户类型</h2><p>需要通过查找用户名称中的某些关键字来判断其用户类型，在excel中可以通过IF、COUNT、FIND函数组合实现。</p>
 <p>如下图所示的表格：</p>
 <img src="/2018/04/17/EXCEL在一个字符串中查找多个字符的用法/用户名称.jpg" title="用户名称">
 <p>该表格的用户名称没有特定规律，但是可以通过某些关键字来判断其用户类型，例如餐饮类型的用户一般含有“餐”、“锅”、“酒楼”等关键字；而宾馆类型的用户一般含有“宾馆”、“酒店”、“招待所”等字样的关键字。那么就可以在用户类型的单元格内通过如下函数实现查找：</p>
@@ -584,7 +583,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">9</span>
+                      
+                    
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -639,7 +640,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#通过关键字判断用户类型"><span class="nav-number">1.</span> <span class="nav-text"> 通过关键字判断用户类型</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#通过关键字判断用户类型"><span class="nav-number">1.</span> <span class="nav-text">通过关键字判断用户类型</span></a></li></ol></div>
             
 
           </div>
