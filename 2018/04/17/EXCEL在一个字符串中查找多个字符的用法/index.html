@@ -404,7 +404,7 @@
 <p>如下图所示的表格：</p>
 <img src="/2018/04/17/EXCEL在一个字符串中查找多个字符的用法/用户名称.jpg" title="用户名称">
 <p>该表格的用户名称没有特定规律，但是可以通过某些关键字来判断其用户类型，例如餐饮类型的用户一般含有“餐”、“锅”、“酒楼”等关键字；而宾馆类型的用户一般含有“宾馆”、“酒店”、“招待所”等字样的关键字。那么就可以在用户类型的单元格内通过如下函数实现查找：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">=IF(COUNT(FIND(&#123;&quot;餐&quot;,&quot;锅&quot;,&quot;酒楼&quot;&#125;,[@名称]))&gt;0,&quot;餐饮&quot;,IF(COUNT(FIND(&#123;&quot;宾馆&quot;,&quot;酒店&quot;,&quot;招待所&quot;&#125;,[@名称]))&gt;0,&quot;宾馆&quot;,&quot;其它&quot;))</span><br></pre></td></tr></table></figure>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">=<span class="built_in">IF</span>(<span class="built_in">COUNT</span>(<span class="built_in">FIND</span>(&#123;<span class="string">"餐"</span>,<span class="string">"锅"</span>,<span class="string">"酒楼"</span>&#125;,[@名称]))&gt;<span class="number">0</span>,<span class="string">"餐饮"</span>,<span class="built_in">IF</span>(<span class="built_in">COUNT</span>(<span class="built_in">FIND</span>(&#123;<span class="string">"宾馆"</span>,<span class="string">"酒店"</span>,<span class="string">"招待所"</span>&#125;,[@名称]))&gt;<span class="number">0</span>,<span class="string">"宾馆"</span>,<span class="string">"其它"</span>))</span><br></pre></td></tr></table></figure>
 
       
     </div>
