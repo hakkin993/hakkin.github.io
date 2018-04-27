@@ -99,27 +99,28 @@
 
 
 
-  <meta name="description" content="通过关键字判断用户类型         需要通过查找用户名称中的某些关键字来判断其用户类型，在excel中可以通过IF、COUNT、FIND函数组合实现。 如下图所示的表格：          该表格的用户名称没有特定规律，但是可以通过某些关键字来判断其用户类型，例如餐饮类型的用户一般含有“餐”、“锅”、“酒楼”等关键字；而宾馆类型的用户一般含有“宾馆”、“酒店”、“招待所”等字样的关键字。那么">
-<meta name="keywords" content="excel,数据">
+  <meta name="description" content="筛选餐饮用户         要对餐饮用户的用气指标进行研究，首先要筛选出餐饮用户，在用户管理系统中并没有单独的餐饮用户分类，其包含在公服营业用户的分类之中。所以需要将餐饮用户从公服营业用户中筛选出来，所用的方法是按照笔者在另一文章&amp;quot;EXCEL在一个字符串中查找多个字符的用法&amp;quot;记载的方法。按照这个方法共从2875个用气数据中筛选出了1240个餐饮用户。  聚类分析">
+<meta name="keywords" content="燃气">
 <meta property="og:type" content="article">
-<meta property="og:title" content="EXCEL在一个字符串中查找多个字符的用法">
-<meta property="og:url" content="https://hakkin994.coding.me/2018/04/17/EXCEL在一个字符串中查找多个字符的用法/index.html">
+<meta property="og:title" content="餐饮用户用气指标分析">
+<meta property="og:url" content="https://hakkin994.coding.me/2018/04/18/餐饮用户用气指标分析/index.html">
 <meta property="og:site_name" content="Hakkin">
-<meta property="og:description" content="通过关键字判断用户类型         需要通过查找用户名称中的某些关键字来判断其用户类型，在excel中可以通过IF、COUNT、FIND函数组合实现。 如下图所示的表格：          该表格的用户名称没有特定规律，但是可以通过某些关键字来判断其用户类型，例如餐饮类型的用户一般含有“餐”、“锅”、“酒楼”等关键字；而宾馆类型的用户一般含有“宾馆”、“酒店”、“招待所”等字样的关键字。那么">
+<meta property="og:description" content="筛选餐饮用户         要对餐饮用户的用气指标进行研究，首先要筛选出餐饮用户，在用户管理系统中并没有单独的餐饮用户分类，其包含在公服营业用户的分类之中。所以需要将餐饮用户从公服营业用户中筛选出来，所用的方法是按照笔者在另一文章&amp;quot;EXCEL在一个字符串中查找多个字符的用法&amp;quot;记载的方法。按照这个方法共从2875个用气数据中筛选出了1240个餐饮用户。  聚类分析">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://hakkin994.coding.me/2018/04/17/EXCEL在一个字符串中查找多个字符的用法/用户名称.jpg">
-<meta property="og:updated_time" content="2018-04-21T15:48:45.000Z">
+<meta property="og:image" content="https://hakkin994.coding.me/2018/04/18/餐饮用户用气指标分析/餐饮系统聚类.jpg">
+<meta property="og:image" content="https://hakkin994.coding.me/2018/04/18/餐饮用户用气指标分析/餐饮聚类定制表.jpg">
+<meta property="og:updated_time" content="2018-04-27T08:04:36.779Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="EXCEL在一个字符串中查找多个字符的用法">
-<meta name="twitter:description" content="通过关键字判断用户类型         需要通过查找用户名称中的某些关键字来判断其用户类型，在excel中可以通过IF、COUNT、FIND函数组合实现。 如下图所示的表格：          该表格的用户名称没有特定规律，但是可以通过某些关键字来判断其用户类型，例如餐饮类型的用户一般含有“餐”、“锅”、“酒楼”等关键字；而宾馆类型的用户一般含有“宾馆”、“酒店”、“招待所”等字样的关键字。那么">
-<meta name="twitter:image" content="https://hakkin994.coding.me/2018/04/17/EXCEL在一个字符串中查找多个字符的用法/用户名称.jpg">
+<meta name="twitter:title" content="餐饮用户用气指标分析">
+<meta name="twitter:description" content="筛选餐饮用户         要对餐饮用户的用气指标进行研究，首先要筛选出餐饮用户，在用户管理系统中并没有单独的餐饮用户分类，其包含在公服营业用户的分类之中。所以需要将餐饮用户从公服营业用户中筛选出来，所用的方法是按照笔者在另一文章&amp;quot;EXCEL在一个字符串中查找多个字符的用法&amp;quot;记载的方法。按照这个方法共从2875个用气数据中筛选出了1240个餐饮用户。  聚类分析">
+<meta name="twitter:image" content="https://hakkin994.coding.me/2018/04/18/餐饮用户用气指标分析/餐饮系统聚类.jpg">
 
 
 
 
 
 
-  <link rel="canonical" href="https://hakkin994.coding.me/2018/04/17/EXCEL在一个字符串中查找多个字符的用法/"/>
+  <link rel="canonical" href="https://hakkin994.coding.me/2018/04/18/餐饮用户用气指标分析/"/>
 
 
 
@@ -129,7 +130,7 @@
   };
 </script>
 
-  <title>EXCEL在一个字符串中查找多个字符的用法 | Hakkin</title>
+  <title>餐饮用户用气指标分析 | Hakkin</title>
   
 
 
@@ -301,7 +302,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hakkin994.coding.me/2018/04/17/EXCEL在一个字符串中查找多个字符的用法/">
+    <link itemprop="mainEntityOfPage" href="https://hakkin994.coding.me/2018/04/18/餐饮用户用气指标分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Bin D">
@@ -318,7 +319,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">EXCEL在一个字符串中查找多个字符的用法
+          <h1 class="post-title" itemprop="name headline">餐饮用户用气指标分析
               
             
           </h1>
@@ -343,7 +344,7 @@
                 
               
 
-              <time title="创建于：2018-04-17 13:41:54" itemprop="dateCreated datePublished" datetime="2018-04-17T13:41:54+08:00">2018-04-17</time>
+              <time title="创建于：2018-04-18 13:37:38" itemprop="dateCreated datePublished" datetime="2018-04-18T13:37:38+08:00">2018-04-18</time>
             
 
             
@@ -360,7 +361,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="更新于：2018-04-21 23:48:45" itemprop="dateModified" datetime="2018-04-21T23:48:45+08:00">2018-04-21</time>
+                <time title="更新于：2018-04-27 16:04:36" itemprop="dateModified" datetime="2018-04-27T16:04:36+08:00">2018-04-27</time>
               
             
           </span>
@@ -377,7 +378,14 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/教程/" itemprop="url" rel="index"><span itemprop="name">教程</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/工作/" itemprop="url" rel="index"><span itemprop="name">工作</span></a></span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/工作/用气规律/" itemprop="url" rel="index"><span itemprop="name">用气规律</span></a></span>
 
                 
                 
@@ -411,12 +419,128 @@
       
 
       
-        <h2 id="通过关键字判断用户类型"><a class="markdownIt-Anchor" href="#通过关键字判断用户类型"></a> 通过关键字判断用户类型</h2>
-<p>        需要通过查找用户名称中的某些关键字来判断其用户类型，在excel中可以通过IF、COUNT、FIND函数组合实现。</p>
-<p>如下图所示的表格：</p>
-<p align="center"> <img src="/2018/04/17/EXCEL在一个字符串中查找多个字符的用法/用户名称.jpg" title="用户名称"></p>
-<p>       该表格的用户名称没有特定规律，但是可以通过某些关键字来判断其用户类型，例如餐饮类型的用户一般含有“餐”、“锅”、“酒楼”等关键字；而宾馆类型的用户一般含有“宾馆”、“酒店”、“招待所”等字样的关键字。那么就可以在用户类型的单元格内通过如下函数实现查找：</p>
-<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">=<span class="built_in">IF</span>(<span class="built_in">COUNT</span>(<span class="built_in">FIND</span>(&#123;<span class="string">"餐"</span>,<span class="string">"锅"</span>,<span class="string">"酒楼"</span>&#125;,[@名称]))&gt;<span class="number">0</span>,<span class="string">"餐饮"</span>,<span class="built_in">IF</span>(<span class="built_in">COUNT</span>(<span class="built_in">FIND</span>(&#123;<span class="string">"宾馆"</span>,<span class="string">"酒店"</span>,<span class="string">"招待所"</span>&#125;,[@名称]))&gt;<span class="number">0</span>,<span class="string">"宾馆"</span>,<span class="string">"其它"</span>))</span><br></pre></td></tr></table></figure>
+        <h2 id="筛选餐饮用户"><a class="markdownIt-Anchor" href="#筛选餐饮用户"></a> 筛选餐饮用户</h2>
+<p>        要对餐饮用户的用气指标进行研究，首先要筛选出餐饮用户，在用户管理系统中并没有单独的餐饮用户分类，其包含在公服营业用户的分类之中。所以需要将餐饮用户从公服营业用户中筛选出来，所用的方法是按照笔者在另一文章<a href="http://blog.hakkin.net/2018/04/17/EXCEL%E5%9C%A8%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%A4%9A%E4%B8%AA%E5%AD%97%E7%AC%A6%E7%9A%84%E7%94%A8%E6%B3%95/" target="_blank" rel="noopener">&quot;EXCEL在一个字符串中查找多个字符的用法&quot;</a>记载的方法。按照这个方法共从2875个用气数据中筛选出了1240个餐饮用户。</p>
+<h2 id="聚类分析"><a class="markdownIt-Anchor" href="#聚类分析"></a> 聚类分析</h2>
+<p>        常用的聚类分析方法有：快速聚类、系统聚类和二阶聚类</p>
+<table>
+<thead>
+<tr>
+<th>聚类方法</th>
+<th>变量类型</th>
+<th>类别个数</th>
+<th>建议个案数</th>
+<th>优势</th>
+<th>劣势</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>快速聚类</td>
+<td>连续变量</td>
+<td>指定类别数</td>
+<td>$\ge$1000</td>
+<td>简单、快速；可自定义聚类中心</td>
+<td>仅限连续变量；聚类结果会受到样本排序影响</td>
+</tr>
+<tr>
+<td>系统聚类</td>
+<td>分类变量；连续变量</td>
+<td>指定类别数范围</td>
+<td>$\le$1000</td>
+<td>支持个案或变量聚类；可使用不同聚类算法</td>
+<td>不能同时处理两种类型变量</td>
+</tr>
+<tr>
+<td>二阶变量</td>
+<td>分类变量；连续变量</td>
+<td>自动确定</td>
+<td>$\ge$1000</td>
+<td>可自动选择最佳聚类数；综合考虑分类和连续变量的重要性</td>
+<td>分类变量较少时，聚类结果容易受到其分布的影响</td>
+</tr>
+</tbody>
+</table>
+<p>        利用SPSS软件对筛选出的这1240个用户进行系统聚类，指定3~4个分类，发现分成4类较为合理。</p>
+<blockquote>
+<p>系统聚类：系统聚类是将每个样品分成若干类的方法，其基本思想是：先将各个样品各看成一类，然后规定类与类之间的距离，选择距离最小的一对合并成新的一类，计算新类与其他类之间的距离，再将距离最近的两类合并，这样每次减少一类，直至所有的样品合为一类为止。ssss</p>
+</blockquote>
+<p align="center"><img src="/2018/04/18/餐饮用户用气指标分析/餐饮系统聚类.jpg" title="[][] 餐饮聚类结果"></p>
+<p align="center"><img src="/2018/04/18/餐饮用户用气指标分析/餐饮聚类定制表.jpg" title="[][] 餐饮聚类结果"></p>
+<h2 id="聚类结果分析"><a class="markdownIt-Anchor" href="#聚类结果分析"></a> 聚类结果分析</h2>
+<p>        假设上面的聚类结果是合理的，那么它就应该符合行业标准JGJ64-2017《饮食建筑设计标准》中对饮食行业的分类标准：</p>
+<table>
+<thead>
+<tr>
+<th>建筑规模</th>
+<th>特大型</th>
+<th>大型</th>
+<th>中型</th>
+<th>小型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>面积（$ m^3 $)</td>
+<td>$&gt;$3000</td>
+<td>500~3000</td>
+<td>150~500</td>
+<td>$ \leq $150</td>
+</tr>
+<tr>
+<td>座位数（个)</td>
+<td>$&gt;$1000</td>
+<td>250~1000</td>
+<td>75~250</td>
+<td>$ \leq $75</td>
+</tr>
+</tbody>
+</table>
+<p>        那么根据系统聚类的结果和这些不同类型的座位数和营业面积可以大致计算出不同类型的餐饮用户合理的用气指标：</p>
+<ul>
+<li>聚类一类对应标准规定的小型用户，其合理用气指标为$0.63m^3/座 \cdot d $ 或 $ 0.32m^3 / 立方米 \cdot d $</li>
+<li>聚类二类对应标准规定的中型用户，其合理用气指标为$0.85m^3/座 \cdot d $ 或 $ 0.42m^3 / 立方米 \cdot d $</li>
+</ul>
+<h2 id="指标验证"><a class="markdownIt-Anchor" href="#指标验证"></a> 指标验证</h2>
+<h3 id="集团用气规律手册验证"><a class="markdownIt-Anchor" href="#集团用气规律手册验证"></a> 集团用气规律手册验证</h3>
+<p>        根据集团公布的《北京市天然气负荷指标、用气规律使用手册（2015）》，餐饮用户的用气指标为座，与根据聚类结果计算出来的用气指标较为吻合，所以聚类结果较为合理。</p>
+<h3 id="偷盗气用户验证"><a class="markdownIt-Anchor" href="#偷盗气用户验证"></a> 偷盗气用户验证</h3>
+<p>        以2017查获的一家偷盗气餐饮用户验证</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>2月</th>
+<th>3月</th>
+<th>4月</th>
+<th>5月</th>
+<th>6月</th>
+<th>7月</th>
+<th>8月</th>
+<th>9月</th>
+<th>10月</th>
+<th>11月</th>
+<th>12月</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>某烤鸭店</td>
+<td>1726</td>
+<td>2257</td>
+<td>2263</td>
+<td>3332</td>
+<td>3795</td>
+<td>2987</td>
+<td>3337</td>
+<td>1540</td>
+<td>5598</td>
+<td>0</td>
+<td>8526</td>
+</tr>
+</tbody>
+</table>
+<p>        该用户查获以前月用气量较低，通过百度地图查看其全景，估算其营业面积至少有300立方米，那么计算其查获以前得用气指标为$ 0.29m^3 / 立方米 \cdot d $立方米，远低于前面计算得中型用户得用气指标，从而验证该指标可用于判断异常用气的餐饮用户。</p>
 
       
     </div>
@@ -437,9 +561,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/excel/" rel="tag"><i class="fa fa-tag"></i> excel</a>
-          
-            <a href="/tags/数据/" rel="tag"><i class="fa fa-tag"></i> 数据</a>
+            <a href="/tags/燃气/" rel="tag"><i class="fa fa-tag"></i> 燃气</a>
           
         </div>
       
@@ -452,8 +574,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/17/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2018/04/17/体验传说的市郊铁路副中心线/" rel="next" title="体验传说的市郊铁路副中心线">
+                <i class="fa fa-chevron-left"></i> 体验传说的市郊铁路副中心线
               </a>
             
           </div>
@@ -462,8 +584,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/04/17/体验传说的市郊铁路副中心线/" rel="prev" title="体验传说的市郊铁路副中心线">
-                体验传说的市郊铁路副中心线 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/04/19/骑行视频/" rel="prev" title="骑行视频">
+                骑行视频 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -659,7 +781,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#通过关键字判断用户类型"><span class="nav-number">1.</span> <span class="nav-text"> 通过关键字判断用户类型</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#筛选餐饮用户"><span class="nav-number">1.</span> <span class="nav-text"> 筛选餐饮用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#聚类分析"><span class="nav-number">2.</span> <span class="nav-text"> 聚类分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#聚类结果分析"><span class="nav-number">3.</span> <span class="nav-text"> 聚类结果分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指标验证"><span class="nav-number">4.</span> <span class="nav-text"> 指标验证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#集团用气规律手册验证"><span class="nav-number">4.1.</span> <span class="nav-text"> 集团用气规律手册验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#偷盗气用户验证"><span class="nav-number">4.2.</span> <span class="nav-text"> 偷盗气用户验证</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -863,6 +985,29 @@
   
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
   
 
 
