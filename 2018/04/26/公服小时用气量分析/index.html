@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.1.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.1.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="小时用气量分析         通过小时用气量的数据可以分析餐饮用户每天的营业时间，从而分析异常用户。  餐饮用户    表型 日均用气小时数(h) 平均小时用气量（m3/hm^3/hm3/h)     G10 9.52 5.57   G16 10.88 5.40   G25 13.59 5.87   G40 13.46 7.67      表型越大的餐饮用户意味着其规模也越大，那么可以从上表看">
+<meta name="keywords" content="燃气">
+<meta property="og:type" content="article">
+<meta property="og:title" content="公服小时用气量分析">
+<meta property="og:url" content="https://hakkin994.coding.me/2018/04/26/公服小时用气量分析/index.html">
+<meta property="og:site_name" content="Hakkin">
+<meta property="og:description" content="小时用气量分析         通过小时用气量的数据可以分析餐饮用户每天的营业时间，从而分析异常用户。  餐饮用户    表型 日均用气小时数(h) 平均小时用气量（m3/hm^3/hm3/h)     G10 9.52 5.57   G16 10.88 5.40   G25 13.59 5.87   G40 13.46 7.67      表型越大的餐饮用户意味着其规模也越大，那么可以从上表看">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-04-27T06:09:33.817Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="公服小时用气量分析">
+<meta name="twitter:description" content="小时用气量分析         通过小时用气量的数据可以分析餐饮用户每天的营业时间，从而分析异常用户。  餐饮用户    表型 日均用气小时数(h) 平均小时用气量（m3/hm^3/hm3/h)     G10 9.52 5.57   G16 10.88 5.40   G25 13.59 5.87   G40 13.46 7.67      表型越大的餐饮用户意味着其规模也越大，那么可以从上表看">
+
+
+
+
+
+
+  <link rel="canonical" href="https://hakkin994.coding.me/2018/04/26/公服小时用气量分析/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>公服小时用气量分析 | Hakkin</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hakkin</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">My Blog Website</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hakkin994.coding.me/2018/04/26/公服小时用气量分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bin D">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar1.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hakkin">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">公服小时用气量分析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建于：2018-04-26 11:15:51" itemprop="dateCreated datePublished" datetime="2018-04-26T11:15:51+08:00">2018-04-26</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="更新于：2018-04-27 14:09:33" itemprop="dateModified" datetime="2018-04-27T14:09:33+08:00">2018-04-27</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/工作/" itemprop="url" rel="index"><span itemprop="name">工作</span></a></span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/工作/用气规律/" itemprop="url" rel="index"><span itemprop="name">用气规律</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="小时用气量分析"><a class="markdownIt-Anchor" href="#小时用气量分析"></a> 小时用气量分析</h1>
+<p>        通过小时用气量的数据可以分析餐饮用户每天的营业时间，从而分析异常用户。</p>
+<h2 id="餐饮用户"><a class="markdownIt-Anchor" href="#餐饮用户"></a> 餐饮用户</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">表型</th>
+<th style="text-align:center">日均用气小时数(h)</th>
+<th style="text-align:center">平均小时用气量（<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>m</mi><mn>3</mn></msup><mi mathvariant="normal">/</mi><mi>h</mi></mrow><annotation encoding="application/x-tex">m^3/h</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathit">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mord">/</span><span class="mord mathit">h</span></span></span></span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">G10</td>
+<td style="text-align:center">9.52</td>
+<td style="text-align:center">5.57</td>
+</tr>
+<tr>
+<td style="text-align:center">G16</td>
+<td style="text-align:center">10.88</td>
+<td style="text-align:center">5.40</td>
+</tr>
+<tr>
+<td style="text-align:center">G25</td>
+<td style="text-align:center">13.59</td>
+<td style="text-align:center">5.87</td>
+</tr>
+<tr>
+<td style="text-align:center">G40</td>
+<td style="text-align:center">13.46</td>
+<td style="text-align:center">7.67</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<ul>
+<li>表型越大的餐饮用户意味着其规模也越大，那么可以从上表看出规模越大的餐饮用户其每天的营业时间也越长。</li>
+</ul>
+</blockquote>
+<h2 id="学校用户"><a class="markdownIt-Anchor" href="#学校用户"></a> 学校用户</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">表型</th>
+<th style="text-align:center">日均用气小时数(h)</th>
+<th style="text-align:center">平均小时用气量（<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>m</mi><mn>3</mn></msup><mi mathvariant="normal">/</mi><mi>h</mi></mrow><annotation encoding="application/x-tex">m^3/h</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathit">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mord">/</span><span class="mord mathit">h</span></span></span></span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">G16</td>
+<td style="text-align:center">9.04</td>
+<td style="text-align:center">4.77</td>
+</tr>
+<tr>
+<td style="text-align:center">G25</td>
+<td style="text-align:center">9.05</td>
+<td style="text-align:center">4.20</td>
+</tr>
+<tr>
+<td style="text-align:center">G40</td>
+<td style="text-align:center">8.44</td>
+<td style="text-align:center">6.73</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<ul>
+<li>学校餐厅供应餐食的时间是的比较固定，那么可以从上表看出其学校食堂的工作时间跟表型大小没有直接关系。</li>
+</ul>
+</blockquote>
+<h2 id="食堂用户"><a class="markdownIt-Anchor" href="#食堂用户"></a> 食堂用户</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">表型</th>
+<th style="text-align:center">日均用气小时数(h)</th>
+<th style="text-align:center">平均小时用气量（<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>m</mi><mn>3</mn></msup><mi mathvariant="normal">/</mi><mi>h</mi></mrow><annotation encoding="application/x-tex">m^3/h</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathit">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mord">/</span><span class="mord mathit">h</span></span></span></span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">G16</td>
+<td style="text-align:center">8.79</td>
+<td style="text-align:center">2.66</td>
+</tr>
+<tr>
+<td style="text-align:center">G25</td>
+<td style="text-align:center">8.94</td>
+<td style="text-align:center">3.16</td>
+</tr>
+<tr>
+<td style="text-align:center">G40</td>
+<td style="text-align:center">11.08</td>
+<td style="text-align:center">5.84</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<ul>
+<li>企事业团体食堂的作息时间与学校餐厅比较类似，就餐时间相对固定，所以其日均用气小时数与学校用户比较相近。</li>
+<li>企事业团体食堂用户的小时用气量要明显低于学校用户，这说明企事业团体食堂的就餐强度要低于学校用户。</li>
+</ul>
+</blockquote>
+<h2 id="宾馆用户"><a class="markdownIt-Anchor" href="#宾馆用户"></a> 宾馆用户</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">表型</th>
+<th style="text-align:center">日均用气小时数(h)</th>
+<th style="text-align:center">平均小时用气量（<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>m</mi><mn>3</mn></msup><mi mathvariant="normal">/</mi><mi>h</mi></mrow><annotation encoding="application/x-tex">m^3/h</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathit">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mord">/</span><span class="mord mathit">h</span></span></span></span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">G10</td>
+<td style="text-align:center">12.15</td>
+<td style="text-align:center">2.54</td>
+</tr>
+<tr>
+<td style="text-align:center">G16</td>
+<td style="text-align:center">14.46</td>
+<td style="text-align:center">2.03</td>
+</tr>
+<tr>
+<td style="text-align:center">G25</td>
+<td style="text-align:center">14.39</td>
+<td style="text-align:center">4.91</td>
+</tr>
+<tr>
+<td style="text-align:center">G40</td>
+<td style="text-align:center">11.57</td>
+<td style="text-align:center">8.79</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<ul>
+<li>宾馆用户的日均用气小时数要明显高于其它类型的公服用户，这是因为宾馆用户不仅仅有餐厅，还可能提供生活热水，所以这类用户每天的用气时间要高于其它用户。</li>
+</ul>
+</blockquote>
+<h2 id="商场"><a class="markdownIt-Anchor" href="#商场"></a> 商场</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">表型</th>
+<th style="text-align:center">日均用气小时数(h)</th>
+<th style="text-align:center">平均小时用气量（<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>m</mi><mn>3</mn></msup><mi mathvariant="normal">/</mi><mi>h</mi></mrow><annotation encoding="application/x-tex">m^3/h</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathit">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mord">/</span><span class="mord mathit">h</span></span></span></span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">G16</td>
+<td style="text-align:center">10.51</td>
+<td style="text-align:center">2.58</td>
+</tr>
+<tr>
+<td style="text-align:center">G25</td>
+<td style="text-align:center">10.98</td>
+<td style="text-align:center">4.09</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<ul>
+<li>商场用户的用气种类一般包括员工食堂和生活热水，所以其每天的用气时间与宾馆用户类似，但是要低于宾馆用户。</li>
+</ul>
+</blockquote>
+<h2 id="医院"><a class="markdownIt-Anchor" href="#医院"></a> 医院</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">表型</th>
+<th style="text-align:right">日均用气小时数(h)</th>
+<th style="text-align:center">平均小时用气量（<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>m</mi><mn>3</mn></msup><mi mathvariant="normal">/</mi><mi>h</mi></mrow><annotation encoding="application/x-tex">m^3/h</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathit">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mord">/</span><span class="mord mathit">h</span></span></span></span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">G40</td>
+<td style="text-align:right">10.01</td>
+<td style="text-align:center">5.97</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<ul>
+<li>医院公户的用气种类一般也是包括食堂和生活热水，所以其日用气时间与商场用户类似，理论上来讲，医院用户的用气强度和用气时间要更高，因为这里可供分析的样本还比较少，这个规律并不明显。</li>
+</ul>
+</blockquote>
+<h2 id="部队"><a class="markdownIt-Anchor" href="#部队"></a> 部队</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">表型</th>
+<th style="text-align:center">日均用气小时数(h)</th>
+<th style="text-align:center">平均小时用气量（<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>m</mi><mn>3</mn></msup><mi mathvariant="normal">/</mi><mi>h</mi></mrow><annotation encoding="application/x-tex">m^3/h</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathit">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mord">/</span><span class="mord mathit">h</span></span></span></span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">G25</td>
+<td style="text-align:center">8.93</td>
+<td style="text-align:center">2.85</td>
+</tr>
+<tr>
+<td style="text-align:center">G40</td>
+<td style="text-align:center">10.01</td>
+<td style="text-align:center">5.97</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<ul>
+<li>部队用户的用气种类通常也是包括食堂和生活热水。那么从这类用户的的日均用气小时数来看，基本上都是维持在10小时左右。</li>
+</ul>
+</blockquote>
+<h1 id="小时用气曲线"><a class="markdownIt-Anchor" href="#小时用气曲线"></a> 小时用气曲线</h1>
+<p>        将不同类型的公服用户每个小时段的用气量统计汇总，可以绘制出不同类型公服用户在一天内的用气曲线，从而寻找规律。</p>
+<div id="echarts5928" style="width: 100%;height: 500px;margin: 0 auto"></div>
+<script src="http://echarts.baidu.com/dist/echarts.min.js"></script>
+
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echarts5928'));
+        // 指定图表的配置项和数据
+        var option = {
+    title: {
+        text: '公服用户小时用气规律',
+    },
+    tooltip: {
+        trigger: 'axis'
+    },
+    grid: {
+        left: '3%',
+        right: '3%',
+        top: '15%',
+        containLabel: true
+    },
+    legend: {
+        data: ['餐饮', '宾馆', '食堂', '学校'],
+        right: '3%',
+    },
+    calculable: true,
+    xAxis: [{
+        type: 'category',
+        boundaryGap: false,
+        data: ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
+    }],
+    yAxis: {
+        type: 'value'
+    },
+    series: [{
+            name: '餐饮',
+            type: 'line',
+            areaStyle: {
+                normal: {
+                    type: 'default',
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgba(199, 37, 50,0.2)'
+                    }, {
+                        offset: 1,
+                        color: 'rgba(199, 37, 50,0.2)'
+                    }], false)
+                }
+            },
+            smooth: true,
+            itemStyle: {
+                normal: {
+                    areaStyle: {
+                        type: 'default'
+                    }
+                }
+            },
+            data: [0.433005092, 0.342165954, 0.346396331, 0.380092707, 0.461451844, 0.807354992, 1.035175476, 1.420353948, 1.885219336, 4.209857927, 7.79366919, 8.081082748, 8.515548885, 9.39447668, 6.263064353, 4.278261655, 4.118197475, 5.228941388, 6.894975136, 7.318475268, 6.047951438, 3.938370861, 1.822063353, 0.781058469]
+        },
+        {
+            name: '宾馆',
+            type: 'line',
+            areaStyle: {
+                normal: {
+                    type: 'default',
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgba(19, 37, 250,0.2)'
+                    }, {
+                        offset: 1,
+                        color: 'rgba(19, 37, 250,0.2)'
+                    }], false)
+                }
+            },
+            smooth: true,
+            itemStyle: {
+                normal: {
+                    areaStyle: {
+                        type: 'default'
+                    }
+                }
+            },
+            data: [1.32184493, 1.020014913, 0.963771359, 0.823615506, 0.987752838, 2.18756074, 4.009761245, 4.134838888, 3.631644905, 5.364078163, 7.573989506, 7.512639704, 6.911681597, 6.719397423, 3.702278964, 2.948594918, 4.066848316, 5.181316341, 6.277665683, 5.944593373, 4.666630185, 3.264579048, 2.441565886, 2.034244948]
+        },
+        {
+            name: '食堂',
+            type: 'line',
+            areaStyle: {
+                normal: {
+                    type: 'default',
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgba(127, 255, 0,0.2)'
+                    }, {
+                        offset: 1,
+                        color: 'rgba(127, 255, 0,0.2)'
+                    }], false)
+                }
+            },
+            smooth: true,
+            data: [0.429842467, 0.24343834, 0.138010932, 0.14868364, 0.3004119, 1.079080274, 2.868904988, 4.23741958, 4.776022773, 5.824859663, 7.750377555, 7.873788124, 6.193230685, 3.860694293, 2.925797098, 2.802173558, 3.907887584, 5.124079325, 3.7958044, 2.976633499, 2.498466723, 1.717827496, 1.428865735, 0.970101708]
+        },
+        {
+            name: '学校',
+            type: 'line',
+            areaStyle: {
+                normal: {
+                    type: 'default',
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgba(255,246,143,0.2)'
+                    }, {
+                        offset: 1,
+                        color: 'rgba(255,246,143,0.2)'
+                    }], false)
+                }
+            },
+            smooth: true,
+            data: [0.012747312, 0.003422744, 0.006332408, 0.066650088, 0.456370748, 1.934757025, 4.612280754, 5.484328554, 6.251112387, 8.161844167, 10.77497314, 9.851093257, 6.783343227, 4.974646423, 2.946838756, 2.374060045, 4.969104003, 7.548291629, 5.484324733, 3.966643775, 2.443437577, 1.101964388, 0.325308807, 0.050515397]
+        },
+    ]
+}
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+</script>
+<blockquote>
+<p>从上图可以看出，不同类型的公服用户在一天中用气高峰点是不一样的：</p>
+<ul>
+<li>对于餐饮用户，其每天的用气高峰点在13：00和19：00，这也与人们外出就餐的高峰点比较吻合；</li>
+<li>对于食堂、宾馆和学校用户，其每天的用气高峰点基本相同，都是在10：00和17：00，这是因为不管是企事业还是学校的食堂都是要事前把食物预制出来，宾馆餐厅很多是采用自助餐的形式，也是需要把食物预制出来，所以这类用户的用气高峰点比较靠前。</li>
+<li>另外，对于食堂、宾馆和学校用户，基本上都会提供早餐，所以在相比餐饮用户多了一个早高峰的用气高峰，基本上在6：00或7：00左右。</li>
+</ul>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/燃气/" rel="tag"><i class="fa fa-tag"></i> 燃气</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/24/2018年春节拍的一些照片/" rel="next" title="2018年春节拍的一些照片">
+                <i class="fa fa-chevron-left"></i> 2018年春节拍的一些照片
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar1.gif"
+                alt="Bin D" />
+            
+              <p class="site-author-name" itemprop="name">Bin D</p>
+              <p class="site-description motion-element" itemprop="description">记录生活、工作和学习</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/hakkin993" target="_blank" title="微博"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/hakkin993" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:dingbin993@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#小时用气量分析"><span class="nav-number">1.</span> <span class="nav-text"> 小时用气量分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#餐饮用户"><span class="nav-number">1.1.</span> <span class="nav-text"> 餐饮用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#学校用户"><span class="nav-number">1.2.</span> <span class="nav-text"> 学校用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#食堂用户"><span class="nav-number">1.3.</span> <span class="nav-text"> 食堂用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#宾馆用户"><span class="nav-number">1.4.</span> <span class="nav-text"> 宾馆用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#商场"><span class="nav-number">1.5.</span> <span class="nav-text"> 商场</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#医院"><span class="nav-number">1.6.</span> <span class="nav-text"> 医院</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部队"><span class="nav-number">1.7.</span> <span class="nav-text"> 部队</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小时用气曲线"><span class="nav-number">2.</span> <span class="nav-text"> 小时用气曲线</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bin D</span>
+
+  
+
+  
+  
+
+  <span class="post-meta-divider">|</span>
+
+
+  <span><a href="http://www.miitbeian.gov.cn/">京ICP备15017510号</a></span> 
+  
+  
+</div> 
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.1.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+  <span>Hosted by <a href="https://pages.coding.me" >Coding Pages</a></span>
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.1.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
