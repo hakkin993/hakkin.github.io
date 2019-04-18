@@ -99,18 +99,18 @@
 
 
 
-  <meta name="description" content="文/Patrick Riley （谷歌首席工程师）译/Bot  编者按：Patrick Riley是Google Accelerated Science团队的首席工程师和高级研究员，加入该团队之前，他在谷歌的网络搜索部门度过了12年 ，是谷歌搜索功能的重要开发者之一，他也在搜索日志收集和用户行为分析方面做了大量工作。为了把这十几年来总结的经验分享给其他开发者，他特意撰文提出了一些分析大型复杂数据集">
+  <meta name="description" content="文/Patrick Riley （谷歌首席工程师） 译/Bot  编者按：Patrick Riley是Google Accelerated Science团队的首席工程师和高级研究员，加入该团队之前，他在谷歌的网络搜索部门度过了12年 ，是谷歌搜索功能的重要开发者之一，他也在搜索日志收集和用户行为分析方面做了大量工作。为了把这十几年来总结的经验分享给其他开发者，他特意撰文提出了一些分析大型复杂数据">
 <meta name="keywords" content="数据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="对大型复杂数据进行分析的实用建议【转载】">
 <meta property="og:url" content="https://hakkin994.coding.me/2018/05/03/对大型复杂数据进行分析的实用建议/index.html">
 <meta property="og:site_name" content="Hakkin">
-<meta property="og:description" content="文/Patrick Riley （谷歌首席工程师）译/Bot  编者按：Patrick Riley是Google Accelerated Science团队的首席工程师和高级研究员，加入该团队之前，他在谷歌的网络搜索部门度过了12年 ，是谷歌搜索功能的重要开发者之一，他也在搜索日志收集和用户行为分析方面做了大量工作。为了把这十几年来总结的经验分享给其他开发者，他特意撰文提出了一些分析大型复杂数据集">
+<meta property="og:description" content="文/Patrick Riley （谷歌首席工程师） 译/Bot  编者按：Patrick Riley是Google Accelerated Science团队的首席工程师和高级研究员，加入该团队之前，他在谷歌的网络搜索部门度过了12年 ，是谷歌搜索功能的重要开发者之一，他也在搜索日志收集和用户行为分析方面做了大量工作。为了把这十几年来总结的经验分享给其他开发者，他特意撰文提出了一些分析大型复杂数据">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-05-03T01:31:45.000Z">
+<meta property="og:updated_time" content="2018-05-03T01:31:45.803Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="对大型复杂数据进行分析的实用建议【转载】">
-<meta name="twitter:description" content="文/Patrick Riley （谷歌首席工程师）译/Bot  编者按：Patrick Riley是Google Accelerated Science团队的首席工程师和高级研究员，加入该团队之前，他在谷歌的网络搜索部门度过了12年 ，是谷歌搜索功能的重要开发者之一，他也在搜索日志收集和用户行为分析方面做了大量工作。为了把这十几年来总结的经验分享给其他开发者，他特意撰文提出了一些分析大型复杂数据集">
+<meta name="twitter:description" content="文/Patrick Riley （谷歌首席工程师） 译/Bot  编者按：Patrick Riley是Google Accelerated Science团队的首席工程师和高级研究员，加入该团队之前，他在谷歌的网络搜索部门度过了12年 ，是谷歌搜索功能的重要开发者之一，他也在搜索日志收集和用户行为分析方面做了大量工作。为了把这十几年来总结的经验分享给其他开发者，他特意撰文提出了一些分析大型复杂数据">
 
 
 
@@ -397,57 +397,110 @@
       
 
       
-        <p>文/Patrick Riley （谷歌首席工程师）<br>译/Bot</p>
+        <p>文/Patrick Riley （谷歌首席工程师）<br>
+译/Bot</p>
 <blockquote>
 <p>编者按：Patrick Riley是Google Accelerated Science团队的首席工程师和高级研究员，加入该团队之前，他在谷歌的网络搜索部门度过了12年 ，是谷歌搜索功能的重要开发者之一，他也在搜索日志收集和用户行为分析方面做了大量工作。为了把这十几年来总结的经验分享给其他开发者，他特意撰文提出了一些分析大型复杂数据集的实用建议。</p>
 </blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;多年来，我带领一个数据科学团队负责处理谷歌搜索的服务器日志。我们经常会被要求用数据解释一些奇怪的结果，用日志解释新现象，测试其他同事的分析结果，或者衡量用户的各种行为。有些人好像很擅长从事这种高质量的数据分析工作，其他同事也乐于评价他们为“谨慎的”“有条不紊的”。但这些形容词实际上是什么意思呢？是什么为他们赢得了这些标签？<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了找出答案，我之前整理了一份名为“优秀的数据分析”（Good Data Analysis）的共享文档，并把它挂在了谷歌内部。出人意料的是，这份文档的浏览量一路飙升，轻松打破过去11年来我在谷歌做的其他工作的阅读记录。即便是距离最后一次更新已过去4年的今天，还是有很多Google员工会经常去查看它。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为什么它会这么受欢迎，而且长盛不衰？我思考了很久，认为其中的主要原因是文档不仅包含抽象的概念描述，更重要的是它非常具有实践性。在工作中，我也的确发现许多同事汲取了其中的观点，并出色地完成了各项任务。因此，我决定在这篇文章中分享其中的部分内容。</p>
+<p>        多年来，我带领一个数据科学团队负责处理谷歌搜索的服务器日志。我们经常会被要求用数据解释一些奇怪的结果，用日志解释新现象，测试其他同事的分析结果，或者衡量用户的各种行为。有些人好像很擅长从事这种高质量的数据分析工作，其他同事也乐于评价他们为“谨慎的”“有条不紊的”。但这些形容词实际上是什么意思呢？是什么为他们赢得了这些标签？<br>
+        为了找出答案，我之前整理了一份名为“优秀的数据分析”（Good Data Analysis）的共享文档，并把它挂在了谷歌内部。出人意料的是，这份文档的浏览量一路飙升，轻松打破过去11年来我在谷歌做的其他工作的阅读记录。即便是距离最后一次更新已过去4年的今天，还是有很多Google员工会经常去查看它。<br>
+        为什么它会这么受欢迎，而且长盛不衰？我思考了很久，认为其中的主要原因是文档不仅包含抽象的概念描述，更重要的是它非常具有实践性。在工作中，我也的确发现许多同事汲取了其中的观点，并出色地完成了各项任务。因此，我决定在这篇文章中分享其中的部分内容。</p>
 <p>本文将分为以下三块：</p>
 <ul>
 <li>技巧：操作、检查数据的想法和技巧。</li>
 <li>处理：关于数据处理方法、检查思路、检查方向的建议。</li>
 <li>社交：如何和他人合作并传达自己的数据和见解。</li>
 </ul>
-<h2 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h2><h3 id="观察数据分布"><a href="#观察数据分布" class="headerlink" title="观察数据分布"></a>观察数据分布</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;虽然通常情况下我们一般用汇总度量（平均值、中位数、标准差等）来交流数据分布，但我们确实需要看到更丰富的分布表示。例如直方图、CDF、QQ plot等可以更直观地展示数据中是否有重要的有趣特征，而这些特征是我们分析多模式行为和总结重要异常值所必需的。</p>
-<h3 id="审视异常值"><a href="#审视异常值" class="headerlink" title="审视异常值"></a>审视异常值</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;作为一名数据分析师，你应该注意查看数据中的异常值，它们就像过去被放进矿坑检查毒气的金丝雀，可以回答分析中的许多基础问题。虽然把它们从数据中剔除出去，或者分类成一个特殊类别是一个好方法，但你也应该清楚之所以这样做的理由。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如我们可以通过查看点击率（CTR）最低的词条发现导致系统漏算点击次数的一些元素，通过查看点击率最高的词条发现导致系统多统计点击次数的设计漏洞。但另一方面，有些异常值是永远无法解释的，所以你要注意自己在上面花的时间。</p>
-<h3 id="报告噪声"><a href="#报告噪声" class="headerlink" title="报告噪声"></a>报告噪声</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在开展数据工作前我们首先要明确一点，就是数据中存在随机性，而且这种随机性有时会欺骗我们。如果不够小心，你很可能会把噪声统计进结果里。因此对于自己得出的每一个估算结果，我们都要在心里掂量一下它的可信程度。有时候我们会要求更精准的分析结果（置信区间、P值、贝叶斯因子等），但有时我们的要求也会比较松。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如当同事问你星期一公司收到了多少有关青蛙的搜索记录，你就可以直接看下近几周来各星期一的数据情况，做一个快速分析，然后跟他说“通常在一千万到两千万之间”（不是实数）。</p>
-<h3 id="看示例"><a href="#看示例" class="headerlink" title="看示例"></a>看示例</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;无论何时，如果你要生成新的分析代码，你就肯定需要查看一些基础数据的示例，以及如何用代码描述、解释数据的示例。如果没有它们，我们几乎没法生成任何复杂的工作分析代码。数据科学家的每一份分析报告其实就是在基础数据上删除大量功能后提取的高度凝练的摘要。只有通过查看完整示例，我们才能确信最后的这份总结是合理的。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了防止分析结果过分侧重于最普遍的情况，我们应该进行分层抽样，以便在整个分布中获得最好的样本。例如如果你要计算用户的点击时间，你最好把所有可以看的样本都看一遍，尤其关注其中的极端值。这就引出了另一个问题，如果你没有处理数据用的合理的可视化工具，你最好先去弄一个来一劳永逸。</p>
-<h3 id="数据切片"><a href="#数据切片" class="headerlink" title="数据切片"></a>数据切片</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里的切片指的是把数据分类成组，然后在各子组中查看具体指标的值。在分析网络流量时，我们通常会根据电脑端/移动端、浏览器、语言环境等把数据分成各个类别。有时同一种用户现象在不同子组之间表现不同，这时我们就需要分门别类地分析数据。如果你觉得每次都分这么多类很麻烦，你也可以稍微选几类横向对比一下，确定不分类对分析结果不存在太大影响。当然，在某种情况下，某些子组也可能会有不良数据，或存在数据表达不完整、根本性质不同等问题。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当你确定要对数据分组后（如experiment/control、A/B），你最好注意一下mix shift带来的影响。mix shift指的是各子组包含的数据量不同，而这会影响最终的分析结果，如辛普森悖论就认为在分组比较中都占优势的一方，会在总评中反而是失势的一方。所以如果要对比的两个子组数据量相近，它们产生的结果是相对准确的。</p>
-<h3 id="考虑实际意义"><a href="#考虑实际意义" class="headerlink" title="考虑实际意义"></a>考虑实际意义</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在有大量数据的情况下，你可以把注意力集中在统计显著性上，也可以深入研究每点数据的细节。但是你需要问自己：“即使X值只比Y值高0.1％，它也有那么重要吗？”当你不能理解/分类部分数据时，这一点尤为重要。如果你无法理解我们日志中的某些用户字符串，那么无论是10％还是0.1％，它都会对你的分析结果产生重大影响。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另一方面，有时你获得的数据量很少，其中的许多变化看起来并不具有统计意义，但你又不能说它们是寻常现象，那这时你就要问自己：这些数据有多大可能是一个事实上的重大变化？</p>
-<h3 id="随时间检查一致性"><a href="#随时间检查一致性" class="headerlink" title="随时间检查一致性"></a>随时间检查一致性</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在进行数据分类时，一个需要经常使用的重要指标是时间（我们常以几天为单位）。这是因为随着时间推移，许多潜在数据可能会干扰我们的分析结果。通常情况下，我们会仔细检查功能的初始版本或初始数据收集，但这种情况并不罕见。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有时某一天或某一时刻会出现一个异常值，你要做的不是当即删掉它，而是把它作为“鱼饵”，去钓出导致这种现象出现的“鱼”。查看日间数据的另一个好处是可以让你掌握数据的变化，这也可以被作为验证置信区间和统计显著性的一个佐证。当然，它还是不能被用来替代置信空间计算的。</p>
-<h2 id="处理"><a href="#处理" class="headerlink" title="处理"></a>处理</h2><h3 id="独立验证、描述和评估"><a href="#独立验证、描述和评估" class="headerlink" title="独立验证、描述和评估"></a>独立验证、描述和评估</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我认为探索性数据分析有3个相互关联的阶段：</p>
+<h2 id="技巧"><a class="markdownIt-Anchor" href="#技巧"></a> 技巧</h2>
+<h3 id="观察数据分布"><a class="markdownIt-Anchor" href="#观察数据分布"></a> 观察数据分布</h3>
+<p>        虽然通常情况下我们一般用汇总度量（平均值、中位数、标准差等）来交流数据分布，但我们确实需要看到更丰富的分布表示。例如直方图、CDF、QQ plot等可以更直观地展示数据中是否有重要的有趣特征，而这些特征是我们分析多模式行为和总结重要异常值所必需的。</p>
+<h3 id="审视异常值"><a class="markdownIt-Anchor" href="#审视异常值"></a> 审视异常值</h3>
+<p>        作为一名数据分析师，你应该注意查看数据中的异常值，它们就像过去被放进矿坑检查毒气的金丝雀，可以回答分析中的许多基础问题。虽然把它们从数据中剔除出去，或者分类成一个特殊类别是一个好方法，但你也应该清楚之所以这样做的理由。<br>
+        例如我们可以通过查看点击率（CTR）最低的词条发现导致系统漏算点击次数的一些元素，通过查看点击率最高的词条发现导致系统多统计点击次数的设计漏洞。但另一方面，有些异常值是永远无法解释的，所以你要注意自己在上面花的时间。</p>
+<h3 id="报告噪声"><a class="markdownIt-Anchor" href="#报告噪声"></a> 报告噪声</h3>
+<p>        在开展数据工作前我们首先要明确一点，就是数据中存在随机性，而且这种随机性有时会欺骗我们。如果不够小心，你很可能会把噪声统计进结果里。因此对于自己得出的每一个估算结果，我们都要在心里掂量一下它的可信程度。有时候我们会要求更精准的分析结果（置信区间、P值、贝叶斯因子等），但有时我们的要求也会比较松。<br>
+        例如当同事问你星期一公司收到了多少有关青蛙的搜索记录，你就可以直接看下近几周来各星期一的数据情况，做一个快速分析，然后跟他说“通常在一千万到两千万之间”（不是实数）。</p>
+<h3 id="看示例"><a class="markdownIt-Anchor" href="#看示例"></a> 看示例</h3>
+<p>        无论何时，如果你要生成新的分析代码，你就肯定需要查看一些基础数据的示例，以及如何用代码描述、解释数据的示例。如果没有它们，我们几乎没法生成任何复杂的工作分析代码。数据科学家的每一份分析报告其实就是在基础数据上删除大量功能后提取的高度凝练的摘要。只有通过查看完整示例，我们才能确信最后的这份总结是合理的。<br>
+        为了防止分析结果过分侧重于最普遍的情况，我们应该进行分层抽样，以便在整个分布中获得最好的样本。例如如果你要计算用户的点击时间，你最好把所有可以看的样本都看一遍，尤其关注其中的极端值。这就引出了另一个问题，如果你没有处理数据用的合理的可视化工具，你最好先去弄一个来一劳永逸。</p>
+<h3 id="数据切片"><a class="markdownIt-Anchor" href="#数据切片"></a> 数据切片</h3>
+<p>        这里的切片指的是把数据分类成组，然后在各子组中查看具体指标的值。在分析网络流量时，我们通常会根据电脑端/移动端、浏览器、语言环境等把数据分成各个类别。有时同一种用户现象在不同子组之间表现不同，这时我们就需要分门别类地分析数据。如果你觉得每次都分这么多类很麻烦，你也可以稍微选几类横向对比一下，确定不分类对分析结果不存在太大影响。当然，在某种情况下，某些子组也可能会有不良数据，或存在数据表达不完整、根本性质不同等问题。<br>
+        当你确定要对数据分组后（如experiment/control、A/B），你最好注意一下mix shift带来的影响。mix shift指的是各子组包含的数据量不同，而这会影响最终的分析结果，如辛普森悖论就认为在分组比较中都占优势的一方，会在总评中反而是失势的一方。所以如果要对比的两个子组数据量相近，它们产生的结果是相对准确的。</p>
+<h3 id="考虑实际意义"><a class="markdownIt-Anchor" href="#考虑实际意义"></a> 考虑实际意义</h3>
+<p>        在有大量数据的情况下，你可以把注意力集中在统计显著性上，也可以深入研究每点数据的细节。但是你需要问自己：“即使X值只比Y值高0.1％，它也有那么重要吗？”当你不能理解/分类部分数据时，这一点尤为重要。如果你无法理解我们日志中的某些用户字符串，那么无论是10％还是0.1％，它都会对你的分析结果产生重大影响。<br>
+        另一方面，有时你获得的数据量很少，其中的许多变化看起来并不具有统计意义，但你又不能说它们是寻常现象，那这时你就要问自己：这些数据有多大可能是一个事实上的重大变化？</p>
+<h3 id="随时间检查一致性"><a class="markdownIt-Anchor" href="#随时间检查一致性"></a> 随时间检查一致性</h3>
+<p>        在进行数据分类时，一个需要经常使用的重要指标是时间（我们常以几天为单位）。这是因为随着时间推移，许多潜在数据可能会干扰我们的分析结果。通常情况下，我们会仔细检查功能的初始版本或初始数据收集，但这种情况并不罕见。<br>
+        有时某一天或某一时刻会出现一个异常值，你要做的不是当即删掉它，而是把它作为“鱼饵”，去钓出导致这种现象出现的“鱼”。查看日间数据的另一个好处是可以让你掌握数据的变化，这也可以被作为验证置信区间和统计显著性的一个佐证。当然，它还是不能被用来替代置信空间计算的。</p>
+<h2 id="处理"><a class="markdownIt-Anchor" href="#处理"></a> 处理</h2>
+<h3 id="独立验证-描述和评估"><a class="markdownIt-Anchor" href="#独立验证-描述和评估"></a> 独立验证、描述和评估</h3>
+<p>        我认为探索性数据分析有3个相互关联的阶段：</p>
 <ul>
 <li>验证（初始数据分析）：在我眼里，这些数据是否是自洽的、是否是被正确收集的，它们是否符合我的分析结果？像这类问题，我们一般会放在数据的完整性检查中解决。常见的有：如果该功能的手动测试已经完成，我能看相关测试日志吗？对于那个刚在移动端上线的功能，我的日志还把它归于PC端吗？</li>
 <li>描述：这些数据客观解释了什么？例如“为什么用户很少用7个单词的组合进行搜索？”“为什么点击后页面加载时间慢了1%？”“为什么网页的跳转率会逐渐降低？”等。</li>
 <li>评估：根据描述，这些数据是否反映了谷歌对于全球用户而言所发生的变化？例如“用户搜索结果更快了”“点击质量更高了”等。</li>
 </ul>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过分离这些阶段，我们能更轻松地和他人达成合作。对于数据描述，这应该是每个从业人员都能达成一致的事情，但共同评估却会导致更多的争论，因为我们每个人都对数据赋予了带有自身观点的意义和价值。如果不把描述和评估分离开来，那我们最终只能获得自己希望得到的分析结果。此外，评估通常是一项更困难的任务，因为通过严格比较其他特征和指标来确定指标的规范价值通常需要投入大量资金。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;虽然分离了，但这些工作的展开不会是线性的。当你探索数据时，很多时候你需要在各个阶段间来回切换，但无论在任何时候，你都应该清楚自己这在做这三步里的哪一步。</p>
-<h3 id="确认测试-数据收集设置"><a href="#确认测试-数据收集设置" class="headerlink" title="确认测试/数据收集设置"></a>确认测试/数据收集设置</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在查看任何数据之前，请确保你了解测试的方法和数据收集的设置。测试者和分析师之间的沟通确实是一个很大的挑战。如果你可以直接查看测试协议或配置，我建议你无论如何都去看看。如果不能看，那就写下你对它的理解，然后向实验者请教你的理解是否是正确的。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;考虑到我们很可能会受异常/错误的配置和数量限制（例如仅针对特定浏览器的有效数据），所以这项工作可以为后期工作建立验证理论，以下是两个值得关注的点：</p>
+<p>        通过分离这些阶段，我们能更轻松地和他人达成合作。对于数据描述，这应该是每个从业人员都能达成一致的事情，但共同评估却会导致更多的争论，因为我们每个人都对数据赋予了带有自身观点的意义和价值。如果不把描述和评估分离开来，那我们最终只能获得自己希望得到的分析结果。此外，评估通常是一项更困难的任务，因为通过严格比较其他特征和指标来确定指标的规范价值通常需要投入大量资金。<br>
+        虽然分离了，但这些工作的展开不会是线性的。当你探索数据时，很多时候你需要在各个阶段间来回切换，但无论在任何时候，你都应该清楚自己这在做这三步里的哪一步。</p>
+<h3 id="确认测试数据收集设置"><a class="markdownIt-Anchor" href="#确认测试数据收集设置"></a> 确认测试/数据收集设置</h3>
+<p>        在查看任何数据之前，请确保你了解测试的方法和数据收集的设置。测试者和分析师之间的沟通确实是一个很大的挑战。如果你可以直接查看测试协议或配置，我建议你无论如何都去看看。如果不能看，那就写下你对它的理解，然后向实验者请教你的理解是否是正确的。<br>
+        考虑到我们很可能会受异常/错误的配置和数量限制（例如仅针对特定浏览器的有效数据），所以这项工作可以为后期工作建立验证理论，以下是两个值得关注的点：</p>
 <ul>
 <li>如果它是某个产品的功能，你可以自己先测试一下；如果不能，那你至少也要自己研究截图和描述。</li>
 <li>找找测试结束前发生的重大事件（假期、大型发布会等）。</li>
 </ul>
-<h3 id="检查“生命体征”"><a href="#检查“生命体征”" class="headerlink" title="检查“生命体征”"></a>检查“生命体征”</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;验证时，我们中的大多数人都热衷于得出各类结论（如用户是否用了我觉得很棒的新功能？），但在那之前，我们需要检查很多其他可能与这些内容无关的东西，这些东西可以被用在以后的分析中，或者帮助直接指出数据中的问题。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户数量改变了吗？之前导致错误点击量统计的bug修好了吗？错误率变化了吗？就像医生在做体检时会不厌其烦地检查你的身高、体重和血压，这些都是衡量数据的重要标志，可以捕捉潜在的大问题。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这也是验证非常重要的一个部分。</p>
-<h3 id="标准第一，自定义第二"><a href="#标准第一，自定义第二" class="headerlink" title="标准第一，自定义第二"></a>标准第一，自定义第二</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这个强调的是工作应树立一些不变的标杆，在查看新功能和新数据时，你可能会想添加一些相应的特殊指标，但在那之前，即便你期望做一些调整，你也应该先在标准指标的基础上看一看。例如在向搜索页面添加全新UI功能是，你应该先了解它对标准指标，如点击结果的影响，然后再深入研究该为这个新功能设立什么标准、<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这样做是因为标准指标已经经历过了很好的验证，并且可能是更准确的。如果你的自定义指标对标准指标没有意义，那么你的新指标很可能是错误的。</p>
-<h3 id="多次检查"><a href="#多次检查" class="headerlink" title="多次检查"></a>多次检查</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当你成功发现一个现象，尤其是发现一个新现象时，请试着用多种方法对同一基础事物做多次衡量。然后再检查这些结果是的否具有一致性。通过多次检查，你可以找出日志代码中的错误，发现基础数据的意外功能或其他重要的筛选步骤。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你能用不同的数据源进行检查，那样的结果会更好。</p>
-<h3 id="检查重现性"><a href="#检查重现性" class="headerlink" title="检查重现性"></a>检查重现性</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;按时间分类数据和随时间检查一致性都是检查重现性的一些特例。如果一个现象是重要而有意义的，那它应该可以在不同的用户群和时间中被挖掘出来。但重现性意味着更多。如果我们正在构建数据模型，那我们会希望模型能在基础数据的小扰动之间保持稳定。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;模型能从时间分类数据和随机子样本中提取具有可靠性和可重复性的特征。如果它不可重现，那么可能是你并没有捕获到产生这些数据的基础知识。</p>
-<h3 id="检查与过去统计结果的一致性"><a href="#检查与过去统计结果的一致性" class="headerlink" title="检查与过去统计结果的一致性"></a>检查与过去统计结果的一致性</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在工作中，你常常会需要计算一个与过去已经计算的某个度量相似的东西。这时你应该将新的指标与过去报告的指标进行比较，即使这些指标针对的是不同的用户群体。例如，如果你正在统计特殊人群的搜索量，并且你得到的数字比普遍接受的数字大得多，那么你就需要进行调查。你的人数统计可能针对这个人群是正确的，但现在你必须做更多的工作来验证这一点。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你统计的是同一个东西吗？你有什么证据证明前后两个统计数据的差别？你可以不给出确切的结论，但你得自圆其说。如果你做不到，那你就得假设自己是错的，然后找出说服自己的理由。这类天差地别的数据更多的时候只是个错误，而不会是天方夜谭般的新见解。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;同样的，新的指标应该先应用于旧数据/功能。当你根据新结果提出新指标后，因为你不知道指标正确与否，所以你要把它放到旧数据上重新验证。</p>
-<h3 id="提出假设并寻找证据"><a href="#提出假设并寻找证据" class="headerlink" title="提出假设并寻找证据"></a>提出假设并寻找证据</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通常，针对复杂问题的探索性数据分析是迭代的。当你发现数据中的异常情况、趋势或其他特征，你会做出假设来解释这些现象。在这里，最重要的不是做一个假设，然后宣布假设为真，而是找出证据来确认/否定这一理论。例如你认为某地区的搜索量异常是因为谷歌在该地新推出的功能导致的，那你就得证明该功能的目标用户是唯一导致异常结果的人群。或者，至少证明这个异常值和功能发布的预期值基本一致。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;良好的数据分析就像是讲故事。为了确保故事的真实性，你要一般讲一变从故事中预见未来，在这个过程中，你要反复问自己：我会做什么样的实验来验证这个分析？即使最后你没有做这些实验，它们也会给你带来一些启发性的思路。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这时你理解的不仅仅是当前的一堆数据，还有各位为未来分析准备好的新的度量和技术。</p>
-<h3 id="使分析结果从分析迭代中受益"><a href="#使分析结果从分析迭代中受益" class="headerlink" title="使分析结果从分析迭代中受益"></a>使分析结果从分析迭代中受益</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在进行探索性分析时，你应该尽可能多地进行整个分析的迭代。通常情况下，你需要完成数据收集、处理、建模等多个步骤。如果这些工组花费太长时间，那么你就错过了在相同时间内获得更多次迭代的机会。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此外，当你最终看到你的数据时，你可能会有不一样的发现。因此你的初始关注的不是完美的，而只是合理的。为自己留下笔记，并再次关注过滤步骤和数据记录等无法解析/理解的内容，你会看到不一样的世界。</p>
-<h2 id="社交"><a href="#社交" class="headerlink" title="社交"></a>社交</h2><h3 id="数据分析从问题开始，而不是数据或技术"><a href="#数据分析从问题开始，而不是数据或技术" class="headerlink" title="数据分析从问题开始，而不是数据或技术"></a>数据分析从问题开始，而不是数据或技术</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当你做数据分析时你应该有一个目标。如果你把自己的需求作为问题，那你就要确保自己正在收集目标数据，而且这数据对你的需求会很有帮助。你的问题可以，也应该随着数据的发展而发展，但缺乏目标的分析是毫无意义的。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此外，千万不要因为你喜欢某些技术就陷入陷阱，然后只找出有关于这个技术的部分问题。</p>
-<h3 id="数据过滤"><a href="#数据过滤" class="headerlink" title="数据过滤"></a>数据过滤</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;几乎每个大数据分析都是从不同阶段的过滤数据开始的。无论你想过滤什么，你都应该考虑这两个因素：</p>
+<h3 id="检查生命体征"><a class="markdownIt-Anchor" href="#检查生命体征"></a> 检查“生命体征”</h3>
+<p>        验证时，我们中的大多数人都热衷于得出各类结论（如用户是否用了我觉得很棒的新功能？），但在那之前，我们需要检查很多其他可能与这些内容无关的东西，这些东西可以被用在以后的分析中，或者帮助直接指出数据中的问题。<br>
+        用户数量改变了吗？之前导致错误点击量统计的bug修好了吗？错误率变化了吗？就像医生在做体检时会不厌其烦地检查你的身高、体重和血压，这些都是衡量数据的重要标志，可以捕捉潜在的大问题。<br>
+        这也是验证非常重要的一个部分。</p>
+<h3 id="标准第一自定义第二"><a class="markdownIt-Anchor" href="#标准第一自定义第二"></a> 标准第一，自定义第二</h3>
+<p>        这个强调的是工作应树立一些不变的标杆，在查看新功能和新数据时，你可能会想添加一些相应的特殊指标，但在那之前，即便你期望做一些调整，你也应该先在标准指标的基础上看一看。例如在向搜索页面添加全新UI功能是，你应该先了解它对标准指标，如点击结果的影响，然后再深入研究该为这个新功能设立什么标准、<br>
+        这样做是因为标准指标已经经历过了很好的验证，并且可能是更准确的。如果你的自定义指标对标准指标没有意义，那么你的新指标很可能是错误的。</p>
+<h3 id="多次检查"><a class="markdownIt-Anchor" href="#多次检查"></a> 多次检查</h3>
+<p>        当你成功发现一个现象，尤其是发现一个新现象时，请试着用多种方法对同一基础事物做多次衡量。然后再检查这些结果是的否具有一致性。通过多次检查，你可以找出日志代码中的错误，发现基础数据的意外功能或其他重要的筛选步骤。<br>
+        如果你能用不同的数据源进行检查，那样的结果会更好。</p>
+<h3 id="检查重现性"><a class="markdownIt-Anchor" href="#检查重现性"></a> 检查重现性</h3>
+<p>        按时间分类数据和随时间检查一致性都是检查重现性的一些特例。如果一个现象是重要而有意义的，那它应该可以在不同的用户群和时间中被挖掘出来。但重现性意味着更多。如果我们正在构建数据模型，那我们会希望模型能在基础数据的小扰动之间保持稳定。<br>
+        模型能从时间分类数据和随机子样本中提取具有可靠性和可重复性的特征。如果它不可重现，那么可能是你并没有捕获到产生这些数据的基础知识。</p>
+<h3 id="检查与过去统计结果的一致性"><a class="markdownIt-Anchor" href="#检查与过去统计结果的一致性"></a> 检查与过去统计结果的一致性</h3>
+<p>        在工作中，你常常会需要计算一个与过去已经计算的某个度量相似的东西。这时你应该将新的指标与过去报告的指标进行比较，即使这些指标针对的是不同的用户群体。例如，如果你正在统计特殊人群的搜索量，并且你得到的数字比普遍接受的数字大得多，那么你就需要进行调查。你的人数统计可能针对这个人群是正确的，但现在你必须做更多的工作来验证这一点。<br>
+        你统计的是同一个东西吗？你有什么证据证明前后两个统计数据的差别？你可以不给出确切的结论，但你得自圆其说。如果你做不到，那你就得假设自己是错的，然后找出说服自己的理由。这类天差地别的数据更多的时候只是个错误，而不会是天方夜谭般的新见解。<br>
+        同样的，新的指标应该先应用于旧数据/功能。当你根据新结果提出新指标后，因为你不知道指标正确与否，所以你要把它放到旧数据上重新验证。</p>
+<h3 id="提出假设并寻找证据"><a class="markdownIt-Anchor" href="#提出假设并寻找证据"></a> 提出假设并寻找证据</h3>
+<p>        通常，针对复杂问题的探索性数据分析是迭代的。当你发现数据中的异常情况、趋势或其他特征，你会做出假设来解释这些现象。在这里，最重要的不是做一个假设，然后宣布假设为真，而是找出证据来确认/否定这一理论。例如你认为某地区的搜索量异常是因为谷歌在该地新推出的功能导致的，那你就得证明该功能的目标用户是唯一导致异常结果的人群。或者，至少证明这个异常值和功能发布的预期值基本一致。<br>
+        良好的数据分析就像是讲故事。为了确保故事的真实性，你要一般讲一变从故事中预见未来，在这个过程中，你要反复问自己：我会做什么样的实验来验证这个分析？即使最后你没有做这些实验，它们也会给你带来一些启发性的思路。<br>
+        这时你理解的不仅仅是当前的一堆数据，还有各位为未来分析准备好的新的度量和技术。</p>
+<h3 id="使分析结果从分析迭代中受益"><a class="markdownIt-Anchor" href="#使分析结果从分析迭代中受益"></a> 使分析结果从分析迭代中受益</h3>
+<p>        在进行探索性分析时，你应该尽可能多地进行整个分析的迭代。通常情况下，你需要完成数据收集、处理、建模等多个步骤。如果这些工组花费太长时间，那么你就错过了在相同时间内获得更多次迭代的机会。<br>
+        此外，当你最终看到你的数据时，你可能会有不一样的发现。因此你的初始关注的不是完美的，而只是合理的。为自己留下笔记，并再次关注过滤步骤和数据记录等无法解析/理解的内容，你会看到不一样的世界。</p>
+<h2 id="社交"><a class="markdownIt-Anchor" href="#社交"></a> 社交</h2>
+<h3 id="数据分析从问题开始而不是数据或技术"><a class="markdownIt-Anchor" href="#数据分析从问题开始而不是数据或技术"></a> 数据分析从问题开始，而不是数据或技术</h3>
+<p>        当你做数据分析时你应该有一个目标。如果你把自己的需求作为问题，那你就要确保自己正在收集目标数据，而且这数据对你的需求会很有帮助。你的问题可以，也应该随着数据的发展而发展，但缺乏目标的分析是毫无意义的。<br>
+        此外，千万不要因为你喜欢某些技术就陷入陷阱，然后只找出有关于这个技术的部分问题。</p>
+<h3 id="数据过滤"><a class="markdownIt-Anchor" href="#数据过滤"></a> 数据过滤</h3>
+<p>        几乎每个大数据分析都是从不同阶段的过滤数据开始的。无论你想过滤什么，你都应该考虑这两个因素：</p>
 <ul>
 <li>确认并明确你在过滤什么；</li>
 <li>计算每次要过滤多少。</li>
 </ul>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于第二条，通常最好的方法是实际计算包括过滤目标在内的所有指标，然后结合数据来进行排除。此外，查看过滤掉的数据对分析也很有意义，因为你可能会“意外”地在里面找到不少“良好”数据。</p>
-<h3 id="比率应该有明确的分子和分母"><a href="#比率应该有明确的分子和分母" class="headerlink" title="比率应该有明确的分子和分母"></a>比率应该有明确的分子和分母</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在数据分析中，基础指标的比率往往是最有趣的，但很多数据科学家往往会忽视这一点，然后给出一些含糊不清的结论。例如“网站在搜索结果中的点击率”，它到底是“网站点击/该网站的点击结果”，还是“搜索结果页面点击/显示该网站搜索结果页面的点击结果”？<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你要和人交流，你就必须讲清楚这一点，不然别人没法比较以前的指标并给出正确解释。</p>
-<h3 id="解释你的专业用语"><a href="#解释你的专业用语" class="headerlink" title="解释你的专业用语"></a>解释你的专业用语</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因为工作上的原因，你会经常需要把分析和结果呈现给没有数据背景的人看，他们中的一部分也许看得懂数据，但也有一部分人是看不懂的，甚至大多数人没法理解你口中的置信区间是什么意思，也不能理解你的统计方法究竟有多可靠。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这时你被误解的风险就很大，所以为了工作的顺利开展，你有责任提供数据的背景和全貌，并给出尽可能易于理解的表达。</p>
-<h3 id="怀疑论-amp-支持者"><a href="#怀疑论-amp-支持者" class="headerlink" title="怀疑论&amp;支持者"></a>怀疑论&amp;支持者</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在处理数据时，你必须既是自己分析结果的支持者，也是一个怀疑论者。每一个数据分析师都希望自己能从数据中找出一些有趣的现象，当你得到这种现象时，你不应该沾沾自喜，而应该问自己“我可以用哪些数据来支持这个结论？”“我可以用哪些方法来推翻这个结论？”。特别是你觉得自己很想得到这个特定结论时，你必须发挥怀疑态度以避免犯错误。</p>
-<h3 id="和外行人分享结果"><a href="#和外行人分享结果" class="headerlink" title="和外行人分享结果"></a>和外行人分享结果</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;熟练的同行评审员可以提供质量不同的反馈和完整性检查，但外行人不行，外行人更倾向于判断你的结果是否符合他们的明确标准。理想情况下，你也许有一位不太懂数据的同事，他可以为你提供一些非常有价值的建议。这些建议不仅能让你对自己的结果进行反思和检查，还能迫使你把一切做得尽善尽美。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在早期，同行的帮助是很有用的；但越到晚期，他们就越容易产生一些古怪的分歧。</p>
-<h3 id="期待并接受无知和错误"><a href="#期待并接受无知和错误" class="headerlink" title="期待并接受无知和错误"></a>期待并接受无知和错误</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们可以从数据中学到很多。Nate Silver在“信号与噪音”中做了一个强有力的例子，只有当我们愿意承认自己能力的极限，我们才能在更好地在分析工作中取得进展。承认无知是一种力量，它通常不会立即得到回报，而且当场感觉很糟糕，但最终会帮助我们赢得同行和领导的尊重。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当你没能及时发现自己的错误时，你会很沮丧，但你要做的主动接受错误并把它作为自己今后信誉的保障，可信度才是数据科学家最关键的社会价值。</p>
-<h2 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;即便我们做到了这24点中的任意一点的，在数据分析这条路上，大家所要面对的困难还有很多。当你把这些想法应用于实际问题时，你会自然在自己的领域生成最重要的习惯和技巧。请分享你的经验和心得，帮助更多人成为更好的数据科学家！</p>
-<p>原文链接：<a href="https://mp.weixin.qq.com/s/7JB3Y7GC7ZwmXp5aMTK4EQ?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/7JB3Y7GC7ZwmXp5aMTK4EQ?utm_source=tuicool&amp;utm_medium=referral</a> </p>
+<p>        对于第二条，通常最好的方法是实际计算包括过滤目标在内的所有指标，然后结合数据来进行排除。此外，查看过滤掉的数据对分析也很有意义，因为你可能会“意外”地在里面找到不少“良好”数据。</p>
+<h3 id="比率应该有明确的分子和分母"><a class="markdownIt-Anchor" href="#比率应该有明确的分子和分母"></a> 比率应该有明确的分子和分母</h3>
+<p>        在数据分析中，基础指标的比率往往是最有趣的，但很多数据科学家往往会忽视这一点，然后给出一些含糊不清的结论。例如“网站在搜索结果中的点击率”，它到底是“网站点击/该网站的点击结果”，还是“搜索结果页面点击/显示该网站搜索结果页面的点击结果”？<br>
+        如果你要和人交流，你就必须讲清楚这一点，不然别人没法比较以前的指标并给出正确解释。</p>
+<h3 id="解释你的专业用语"><a class="markdownIt-Anchor" href="#解释你的专业用语"></a> 解释你的专业用语</h3>
+<p>        因为工作上的原因，你会经常需要把分析和结果呈现给没有数据背景的人看，他们中的一部分也许看得懂数据，但也有一部分人是看不懂的，甚至大多数人没法理解你口中的置信区间是什么意思，也不能理解你的统计方法究竟有多可靠。<br>
+        这时你被误解的风险就很大，所以为了工作的顺利开展，你有责任提供数据的背景和全貌，并给出尽可能易于理解的表达。</p>
+<h3 id="怀疑论支持者"><a class="markdownIt-Anchor" href="#怀疑论支持者"></a> 怀疑论&amp;支持者</h3>
+<p>        在处理数据时，你必须既是自己分析结果的支持者，也是一个怀疑论者。每一个数据分析师都希望自己能从数据中找出一些有趣的现象，当你得到这种现象时，你不应该沾沾自喜，而应该问自己“我可以用哪些数据来支持这个结论？”“我可以用哪些方法来推翻这个结论？”。特别是你觉得自己很想得到这个特定结论时，你必须发挥怀疑态度以避免犯错误。</p>
+<h3 id="和外行人分享结果"><a class="markdownIt-Anchor" href="#和外行人分享结果"></a> 和外行人分享结果</h3>
+<p>        熟练的同行评审员可以提供质量不同的反馈和完整性检查，但外行人不行，外行人更倾向于判断你的结果是否符合他们的明确标准。理想情况下，你也许有一位不太懂数据的同事，他可以为你提供一些非常有价值的建议。这些建议不仅能让你对自己的结果进行反思和检查，还能迫使你把一切做得尽善尽美。<br>
+        在早期，同行的帮助是很有用的；但越到晚期，他们就越容易产生一些古怪的分歧。</p>
+<h3 id="期待并接受无知和错误"><a class="markdownIt-Anchor" href="#期待并接受无知和错误"></a> 期待并接受无知和错误</h3>
+<p>        我们可以从数据中学到很多。Nate Silver在“信号与噪音”中做了一个强有力的例子，只有当我们愿意承认自己能力的极限，我们才能在更好地在分析工作中取得进展。承认无知是一种力量，它通常不会立即得到回报，而且当场感觉很糟糕，但最终会帮助我们赢得同行和领导的尊重。<br>
+        当你没能及时发现自己的错误时，你会很沮丧，但你要做的主动接受错误并把它作为自己今后信誉的保障，可信度才是数据科学家最关键的社会价值。</p>
+<h2 id="最后的话"><a class="markdownIt-Anchor" href="#最后的话"></a> 最后的话</h2>
+<p>        即便我们做到了这24点中的任意一点的，在数据分析这条路上，大家所要面对的困难还有很多。当你把这些想法应用于实际问题时，你会自然在自己的领域生成最重要的习惯和技巧。请分享你的经验和心得，帮助更多人成为更好的数据科学家！</p>
+<p>原文链接：<a href="https://mp.weixin.qq.com/s/7JB3Y7GC7ZwmXp5aMTK4EQ?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/7JB3Y7GC7ZwmXp5aMTK4EQ?utm_source=tuicool&amp;utm_medium=referral</a></p>
 
       
     </div>
@@ -571,7 +624,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -696,7 +749,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#技巧"><span class="nav-number">1.</span> <span class="nav-text">技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#观察数据分布"><span class="nav-number">1.1.</span> <span class="nav-text">观察数据分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#审视异常值"><span class="nav-number">1.2.</span> <span class="nav-text">审视异常值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#报告噪声"><span class="nav-number">1.3.</span> <span class="nav-text">报告噪声</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#看示例"><span class="nav-number">1.4.</span> <span class="nav-text">看示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据切片"><span class="nav-number">1.5.</span> <span class="nav-text">数据切片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#考虑实际意义"><span class="nav-number">1.6.</span> <span class="nav-text">考虑实际意义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随时间检查一致性"><span class="nav-number">1.7.</span> <span class="nav-text">随时间检查一致性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理"><span class="nav-number">2.</span> <span class="nav-text">处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#独立验证、描述和评估"><span class="nav-number">2.1.</span> <span class="nav-text">独立验证、描述和评估</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#确认测试-数据收集设置"><span class="nav-number">2.2.</span> <span class="nav-text">确认测试/数据收集设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查“生命体征”"><span class="nav-number">2.3.</span> <span class="nav-text">检查“生命体征”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标准第一，自定义第二"><span class="nav-number">2.4.</span> <span class="nav-text">标准第一，自定义第二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多次检查"><span class="nav-number">2.5.</span> <span class="nav-text">多次检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查重现性"><span class="nav-number">2.6.</span> <span class="nav-text">检查重现性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查与过去统计结果的一致性"><span class="nav-number">2.7.</span> <span class="nav-text">检查与过去统计结果的一致性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提出假设并寻找证据"><span class="nav-number">2.8.</span> <span class="nav-text">提出假设并寻找证据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使分析结果从分析迭代中受益"><span class="nav-number">2.9.</span> <span class="nav-text">使分析结果从分析迭代中受益</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#社交"><span class="nav-number">3.</span> <span class="nav-text">社交</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据分析从问题开始，而不是数据或技术"><span class="nav-number">3.1.</span> <span class="nav-text">数据分析从问题开始，而不是数据或技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据过滤"><span class="nav-number">3.2.</span> <span class="nav-text">数据过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#比率应该有明确的分子和分母"><span class="nav-number">3.3.</span> <span class="nav-text">比率应该有明确的分子和分母</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解释你的专业用语"><span class="nav-number">3.4.</span> <span class="nav-text">解释你的专业用语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#怀疑论-amp-支持者"><span class="nav-number">3.5.</span> <span class="nav-text">怀疑论&amp;支持者</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#和外行人分享结果"><span class="nav-number">3.6.</span> <span class="nav-text">和外行人分享结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#期待并接受无知和错误"><span class="nav-number">3.7.</span> <span class="nav-text">期待并接受无知和错误</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后的话"><span class="nav-number">4.</span> <span class="nav-text">最后的话</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#技巧"><span class="nav-number">1.</span> <span class="nav-text"> 技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#观察数据分布"><span class="nav-number">1.1.</span> <span class="nav-text"> 观察数据分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#审视异常值"><span class="nav-number">1.2.</span> <span class="nav-text"> 审视异常值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#报告噪声"><span class="nav-number">1.3.</span> <span class="nav-text"> 报告噪声</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#看示例"><span class="nav-number">1.4.</span> <span class="nav-text"> 看示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据切片"><span class="nav-number">1.5.</span> <span class="nav-text"> 数据切片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#考虑实际意义"><span class="nav-number">1.6.</span> <span class="nav-text"> 考虑实际意义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随时间检查一致性"><span class="nav-number">1.7.</span> <span class="nav-text"> 随时间检查一致性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理"><span class="nav-number">2.</span> <span class="nav-text"> 处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#独立验证-描述和评估"><span class="nav-number">2.1.</span> <span class="nav-text"> 独立验证、描述和评估</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#确认测试数据收集设置"><span class="nav-number">2.2.</span> <span class="nav-text"> 确认测试/数据收集设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查生命体征"><span class="nav-number">2.3.</span> <span class="nav-text"> 检查“生命体征”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标准第一自定义第二"><span class="nav-number">2.4.</span> <span class="nav-text"> 标准第一，自定义第二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多次检查"><span class="nav-number">2.5.</span> <span class="nav-text"> 多次检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查重现性"><span class="nav-number">2.6.</span> <span class="nav-text"> 检查重现性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查与过去统计结果的一致性"><span class="nav-number">2.7.</span> <span class="nav-text"> 检查与过去统计结果的一致性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提出假设并寻找证据"><span class="nav-number">2.8.</span> <span class="nav-text"> 提出假设并寻找证据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使分析结果从分析迭代中受益"><span class="nav-number">2.9.</span> <span class="nav-text"> 使分析结果从分析迭代中受益</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#社交"><span class="nav-number">3.</span> <span class="nav-text"> 社交</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据分析从问题开始而不是数据或技术"><span class="nav-number">3.1.</span> <span class="nav-text"> 数据分析从问题开始，而不是数据或技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据过滤"><span class="nav-number">3.2.</span> <span class="nav-text"> 数据过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#比率应该有明确的分子和分母"><span class="nav-number">3.3.</span> <span class="nav-text"> 比率应该有明确的分子和分母</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解释你的专业用语"><span class="nav-number">3.4.</span> <span class="nav-text"> 解释你的专业用语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#怀疑论支持者"><span class="nav-number">3.5.</span> <span class="nav-text"> 怀疑论&amp;支持者</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#和外行人分享结果"><span class="nav-number">3.6.</span> <span class="nav-text"> 和外行人分享结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#期待并接受无知和错误"><span class="nav-number">3.7.</span> <span class="nav-text"> 期待并接受无知和错误</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后的话"><span class="nav-number">4.</span> <span class="nav-text"> 最后的话</span></a></li></ol></div>
             
 
           </div>
@@ -716,7 +769,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
