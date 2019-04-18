@@ -107,7 +107,7 @@
 <meta property="og:site_name" content="Hakkin">
 <meta property="og:description" content="ECHarts是百度开源的一个数据可视化工具，其使用 JavaScript 提供直观，交互丰富，可高度个性化定制的数据可视化图表。那么在利用hexo搭建的博客上如何使用ECharts呢？Kun Chen 在《在 Hexo 中插入 ECharts 动态图表》中提供了一个ECharts插件，十分方便在hexo中使用ECharts图表。  安装使用  安装ECharts插件  1npm">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-21T15:45:37.000Z">
+<meta property="og:updated_time" content="2018-04-21T15:45:37.738Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在hexo中使用ECharts">
 <meta name="twitter:description" content="ECHarts是百度开源的一个数据可视化工具，其使用 JavaScript 提供直观，交互丰富，可高度个性化定制的数据可视化图表。那么在利用hexo搭建的博客上如何使用ECharts呢？Kun Chen 在《在 Hexo 中插入 ECharts 动态图表》中提供了一个ECharts插件，十分方便在hexo中使用ECharts图表。  安装使用  安装ECharts插件  1npm">
@@ -422,12 +422,12 @@
 <p>        其中 echarts 是标签名，不需要更改，400 是图表容器的高度，85% 是图表容器的相对宽度。而在 tag 之间的部分，则利用<a href="http://tushuo.baidu.com/" target="_blank" rel="noopener">百度图说</a>生成代码填入即可。</p>
 <h2 id="测试"><a class="markdownIt-Anchor" href="#测试"></a> 测试</h2>
 <figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&#123;% echarts <span class="number">400</span> '80%' %&#125;</span><br><span class="line">&#123;</span><br><span class="line">    title: &#123;</span><br><span class="line">        text: <span class="string">"某地区蒸发量和降水量"</span>,</span><br><span class="line">        subtext: <span class="string">"纯属虚构"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    tooltip: &#123;</span><br><span class="line">        trigger: <span class="string">"axis"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    legend: &#123;</span><br><span class="line">        data: [<span class="string">"蒸发量"</span>,<span class="string">"降水量"</span>]</span><br><span class="line">    &#125;,</span><br><span class="line">    xAxis: [</span><br><span class="line">        &#123;</span><br><span class="line">            type: <span class="string">"category"</span>,</span><br><span class="line">            data: [<span class="string">"1月"</span>,<span class="string">"2月"</span>,<span class="string">"3月"</span>,<span class="string">"4月"</span>,<span class="string">"5月"</span>,<span class="string">"6月"</span>,<span class="string">"7月"</span>,<span class="string">"8月"</span>,<span class="string">"9月"</span>,<span class="string">"10月"</span>,<span class="string">"11月"</span>,<span class="string">"12月"</span>]</span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    yAxis: [</span><br><span class="line">        &#123;</span><br><span class="line">            type: <span class="string">"value"</span></span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    series: [</span><br><span class="line">        &#123;</span><br><span class="line">            name: <span class="string">"蒸发量"</span>,</span><br><span class="line">            type: <span class="string">"bar"</span>,</span><br><span class="line">            data: [<span class="number">2</span>,<span class="number">4.9</span>,<span class="number">7</span>,<span class="number">23.2</span>,<span class="number">25.6</span>,<span class="number">76.7</span>,<span class="number">135.6</span>,<span class="number">162.2</span>,<span class="number">32.6</span>,<span class="number">20</span>,<span class="number">6.4</span>,<span class="number">3.3</span>]</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            name: <span class="string">"降水量"</span>,</span><br><span class="line">            type: <span class="string">"bar"</span>,</span><br><span class="line">            data: [<span class="number">2.6</span>,<span class="number">5.9</span>,<span class="number">9</span>,<span class="number">26.4</span>,<span class="number">28.7</span>,<span class="number">70.7</span>,<span class="number">175.6</span>,<span class="number">182.2</span>,<span class="number">48.7</span>,<span class="number">18.8</span>,<span class="number">6</span>,<span class="number">2.3</span>]</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line">&#123;% endecharts %&#125;</span><br></pre></td></tr></table></figure>
-<div id="echarts6086" style="width: 80%;height: 400px;margin: 0 auto"></div>
+<div id="echarts1364" style="width: 80%;height: 400px;margin: 0 auto"></div>
 <script src="http://echarts.baidu.com/dist/echarts.min.js"></script>
 
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('echarts6086'));
+        var myChart = echarts.init(document.getElementById('echarts1364'));
         // 指定图表的配置项和数据
         var option = {
     title: {
@@ -510,8 +510,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/04/17/hello-world/" rel="prev" title="Hello World">
-                Hello World <i class="fa fa-chevron-right"></i>
+              <a href="/2018/04/17/EXCEL在一个字符串中查找多个字符的用法/" rel="prev" title="EXCEL在一个字符串中查找多个字符的用法">
+                EXCEL在一个字符串中查找多个字符的用法 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -590,7 +590,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -660,7 +660,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">16</span>
+                      
+                    
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
